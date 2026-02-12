@@ -55,7 +55,7 @@ interface Game {
   [key: string]: any;
 }
 
-const API_BASE_URL = "http://localhost:8000"; // TODO: move to .env
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 function GameById() {
   const [game, setGame] = useState<Game | null>(null);

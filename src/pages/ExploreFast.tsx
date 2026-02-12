@@ -37,8 +37,7 @@ const GameSearch: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Update this to match your FastAPI server URL
-  const API_BASE_URL = "http://localhost:8000";
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
   const searchGames = async (gameName: string) => {
     if (!gameName.trim()) {
