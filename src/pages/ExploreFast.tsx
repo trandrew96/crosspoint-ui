@@ -63,7 +63,6 @@ const GameSearch: React.FC = () => {
 
       const filteredGames = data.results
         .filter((game) => game.cover?.url != null)
-        .filter((game) => game.game_type === 0)
         .filter((game) => game.rating != null)
         .filter((game) => game.version_parent == null);
 
