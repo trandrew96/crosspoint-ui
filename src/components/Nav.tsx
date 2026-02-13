@@ -28,7 +28,7 @@ const Nav = () => {
         <div
           className={`${
             isOpen ? "block" : "hidden"
-          } absolute md:static top-16 left-0 w-full md:w-auto bg-gray-800 md:flex md:space-x-4`}
+          } absolute md:static top-16 left-0 w-full md:w-auto bg-gray-800 md:flex md:space-x-4 z-10`}
         >
           <div className="flex flex-col md:flex-row md:items-center p-4 md:p-0 space-y-2 md:space-y-0 md:space-x-4">
             <Link to="/" className="text-white hover:text-gray-300">
