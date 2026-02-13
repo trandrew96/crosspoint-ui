@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { IoGameController } from "react-icons/io5";
+import { RiAccountCircleFill } from "react-icons/ri";
 
 const Nav = () => {
   const { user, loading } = useAuth();
@@ -48,7 +49,7 @@ const Nav = () => {
             </Link>
             {user ? (
               <Link to="/profile" className="text-white hover:text-gray-300">
-                Account
+                <RiAccountCircleFill size={28} className="text-white" />
                 {/* {user.email} */}
               </Link>
             ) : (

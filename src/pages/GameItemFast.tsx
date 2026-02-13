@@ -220,12 +220,19 @@ function GameById() {
           <section className="grid grid-cols-6 bg-slate-800 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
             <h2 className="col-span-6 text-xl font-bold">Screenshots</h2>
             {game?.screenshots?.map((screenshot: Screenshot, index: number) => (
-              <img
+              <a
+                href={screenshot.url?.replace("t_thumb", "t_1080p")}
+                target="_blank"
+                rel="noopener noreferrer"
                 key={index}
-                className="h-32 object-cover mx-auto"
-                src={screenshot.url}
-                alt={`Screenshot ${index + 1}`}
-              />
+              >
+                <img
+                  key={index}
+                  className="h-32 object-cover mx-auto rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
+                  src={screenshot.url?.replace("t_thumb", "t_cover_big")}
+                  alt={`Screenshot ${index + 1}`}
+                />
+              </a>
             ))}
           </section>
 
