@@ -8,10 +8,12 @@ import Profile from "./pages/Profile";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import GameById from "./pages/GameItemFast";
+import Explore from "./pages/Explore";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/search", element: <Search /> },
+  { path: "/explore", element: <Explore /> },
   { path: "/sign-up", element: <SignUp /> },
   { path: "/sign-in", element: <SignIn /> },
   { path: "/profile", element: <Profile /> },

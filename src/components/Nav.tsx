@@ -43,6 +43,9 @@ const Nav = () => {
             <Link to="/search" className="text-white hover:text-gray-300">
               Search
             </Link>
+            <Link to="/explore" className="text-white hover:text-gray-300">
+              Explore
+            </Link>
             {user ? (
               <Link to="/profile" className="text-white hover:text-gray-300">
                 Account

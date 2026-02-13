@@ -130,15 +130,137 @@ export const gameAPI = {
     });
   },
 
-  // You can add more methods here as needed
-  // /**
-  //  * Get all liked games for the current user
-  //  */
-  // getLikedGames: async (): Promise<string[]> => {
-  //   return authenticatedFetch<string[]>('/games/liked', {
-  //     method: 'GET',
-  //   });
-  // },
+  // Explore page endpoints (PUBLIC - no auth required)
+
+  /**
+   * Get upcoming game releases
+   */
+  getUpcomingGames: async (limit: number = 20): Promise<any> => {
+    const response = await fetch(
+      `${API_BASE_URL}/explore/upcoming?limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch upcoming games: ${response.statusText}`);
+    }
+
+    return response.json();
+  },
+
+  /**
+   * Get trending games
+   */
+  getTrendingGames: async (limit: number = 20): Promise<any> => {
+    const response = await fetch(
+      `${API_BASE_URL}/explore/trending?limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch trending games: ${response.statusText}`);
+    }
+
+    return response.json();
+  },
+
+  /**
+   * Get top rated games
+   */
+  getTopRatedGames: async (limit: number = 20): Promise<any> => {
+    const response = await fetch(
+      `${API_BASE_URL}/explore/top-rated?limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch top rated games: ${response.statusText}`,
+      );
+    }
+
+    return response.json();
+  },
+
+  /**
+   * Get recently released games
+   */
+  getRecentGames: async (limit: number = 20): Promise<any> => {
+    const response = await fetch(
+      `${API_BASE_URL}/explore/recent?limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch recent games: ${response.statusText}`);
+    }
+
+    return response.json();
+  },
+
+  /**
+   * Get most anticipated games (highest hype count)
+   */
+  getMostAnticipated: async (limit: number = 20): Promise<any> => {
+    const response = await fetch(
+      `${API_BASE_URL}/explore/most-anticipated?limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch most anticipated games: ${response.statusText}`,
+      );
+    }
+
+    return response.json();
+  },
+
+  /**
+   * Get hidden gem games (high rating, low rating count)
+   */
+  getHiddenGems: async (limit: number = 20): Promise<any> => {
+    const response = await fetch(
+      `${API_BASE_URL}/explore/hidden-gems?limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch hidden gems: ${response.statusText}`);
+    }
+
+    return response.json();
+  },
 };
 
 export default authenticatedFetch;
