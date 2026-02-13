@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { gameAPI } from "../utils/apiClient";
 
 interface LikeButtonSimplifiedProps {
@@ -13,24 +13,51 @@ const LikeButtonSimplified: React.FC<LikeButtonSimplifiedProps> = ({
   onLikeChange,
 }) => {
   const [isLiked, setIsLiked] = useState<boolean>(initialLiked);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true); // Start with true
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if the game is already liked when the component mounts
+    const checkLikedStatus = async () => {
+      if (!gameId) return; // Guard clause
+
+      try {
+        const response = await gameAPI.checkGameLiked(gameId);
+        setIsLiked(response.liked);
+        setError(null);
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to check like status";
+        setError(errorMessage);
+        console.error("Error checking like status:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkLikedStatus();
+  }, [gameId]);
 
   const handleToggleLike = async (): Promise<void> => {
     setIsLoading(true);
     setError(null);
 
+    // Optimistic update
+    const previousLikedState = isLiked;
+    setIsLiked(!isLiked);
+
     try {
-      if (isLiked) {
+      if (previousLikedState) {
         await gameAPI.unlikeGame(gameId);
-        setIsLiked(false);
         onLikeChange?.(false);
       } else {
         await gameAPI.likeGame(gameId);
-        setIsLiked(true);
         onLikeChange?.(true);
       }
     } catch (err) {
+      // Revert on error
+      setIsLiked(previousLikedState);
+
       const errorMessage =
         err instanceof Error ? err.message : "An unknown error occurred";
       console.error("Error toggling like:", err);
@@ -45,22 +72,16 @@ const LikeButtonSimplified: React.FC<LikeButtonSimplifiedProps> = ({
       <button
         onClick={handleToggleLike}
         disabled={isLoading}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: isLiked ? "#e74c3c" : "#3498db",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: isLoading ? "not-allowed" : "pointer",
-          opacity: isLoading ? 0.6 : 1,
-        }}
+        className={`px-5 py-2 rounded-lg transition-all ${
+          isLiked
+            ? "bg-red-500 hover:bg-red-600"
+            : "bg-blue-500 hover:bg-blue-600"
+        } text-white disabled:opacity-60 disabled:cursor-not-allowed`}
       >
         {isLoading ? "Loading..." : isLiked ? "❤️ Liked" : "🤍 Like"}
       </button>
 
-      {error && (
-        <div style={{ color: "red", marginTop: "10px" }}>Error: {error}</div>
-      )}
+      {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
     </div>
   );
 };

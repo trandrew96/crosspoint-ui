@@ -77,9 +77,16 @@ async function authenticatedFetch<T = any>(
 }
 
 /**
- * API methods for game likes
+ * API methods for game-related actions
  */
 export const gameAPI = {
+  // Get game details by ID
+  getGameById: async (gameId: string): Promise<any> => {
+    return authenticatedFetch(`/games/${gameId}`, {
+      method: "GET",
+    });
+  },
+
   /**
    * Like a game
    */
@@ -97,6 +104,12 @@ export const gameAPI = {
     return authenticatedFetch<LikeGameResponse>("/games/like", {
       method: "DELETE",
       body: JSON.stringify({ game_id: gameId }),
+    });
+  },
+
+  checkGameLiked: async (gameId: string): Promise<{ liked: boolean }> => {
+    return authenticatedFetch<{ liked: boolean }>(`/games/${gameId}/liked`, {
+      method: "GET",
     });
   },
 

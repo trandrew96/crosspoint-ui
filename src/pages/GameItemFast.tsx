@@ -4,6 +4,7 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import LikeButtonSimplified from "../components/LikeButtonSimplified";
 import { WEBSITE_CONFIG } from "../utils/websiteConfig";
+import { gameAPI } from "../utils/apiClient";
 
 interface Cover {
   url?: string;
@@ -58,29 +59,21 @@ interface Game {
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 function GameById() {
+  const { id } = useParams();
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const API_ENDPOINT = API_BASE_URL + "/games/" + useParams().id;
+  const API_ENDPOINT = `${API_BASE_URL}/games/${id}`;
 
-  // Fetch game data when component mounts or when gameId changes
+  // Fetch game data when component mounts or when id changes
   useEffect(() => {
     const fetchGame = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const response = await fetch(API_ENDPOINT);
-
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error(`Game with ID ${useParams()} not found`);
-          }
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
+        const data = await gameAPI.getGameById(id || "");
         console.log("API response:", data);
         setGame(data);
       } catch (err) {
@@ -91,8 +84,10 @@ function GameById() {
       }
     };
 
-    fetchGame();
-  }, []);
+    if (id) {
+      fetchGame();
+    }
+  }, [id]);
 
   // Update title based on game name
   useEffect(() => {
