@@ -10,7 +10,7 @@ export default function MainLayout() {
 
       {/* Page Content */}
       {/* <main className="flex-1 mx-auto w-full pt-24 pb-16"> */}
-      <main className="max-w-7xl mx-auto w-full px-10 pt-24 pb-16">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-10 pt-24 pb-16">
         <Outlet />
       </main>
 

@@ -9,7 +9,7 @@ class Footer extends Component<Props, State> {
 
   render() {
     return (
-      <footer className="mt-6 text-slate-400 text-center">
+      <footer className="mt-6 text-slate-400 text-center mb-5">
         <small>© {new Date().getFullYear()} CrossPoint</small>
         <br />
         <a
