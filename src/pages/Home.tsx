@@ -92,7 +92,7 @@ const Home: React.FC = () => {
 
           {!isLoading && data && data.results.length > 0 && (
             <main className="max-w-7xl mx-auto text-center">
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5">
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5 px-5 md:px-0">
                 {data.results.map((item: Game) => (
                   <div
                     className="rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
