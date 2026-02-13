@@ -1,12 +1,10 @@
 import "./App.css";
 import { createBrowserRouter } from "react-router-dom";
-import Explore from "./pages/Explore";
 import ExploreFast from "./pages/ExploreFast";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
-import GameItem from "./pages/GameItem";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import GameById from "./pages/GameItemFast";
