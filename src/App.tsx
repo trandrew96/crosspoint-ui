@@ -1,6 +1,6 @@
 import "./App.css";
 import { createBrowserRouter } from "react-router-dom";
-import ExploreFast from "./pages/ExploreFast";
+import Search from "./pages/Search";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
@@ -11,7 +11,7 @@ import GameById from "./pages/GameItemFast";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
-  { path: "/explore", element: <ExploreFast /> },
+  { path: "/explore", element: <Search /> },
   { path: "/sign-up", element: <SignUp /> },
   { path: "/sign-in", element: <SignIn /> },
   { path: "/profile", element: <Profile /> },
