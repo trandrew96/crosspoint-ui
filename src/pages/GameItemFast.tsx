@@ -56,15 +56,11 @@ interface Game {
   [key: string]: any;
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
 function GameById() {
   const { id } = useParams();
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  const API_ENDPOINT = `${API_BASE_URL}/games/${id}`;
 
   // Fetch game data when component mounts or when id changes
   useEffect(() => {
@@ -85,6 +81,7 @@ function GameById() {
     };
 
     if (id) {
+      console.log("Fetching game with ID:", id);
       fetchGame();
     }
   }, [id]);
@@ -121,6 +118,54 @@ function GameById() {
   return (
     <>
       <Nav />
+
+      {loading && (
+        <main className="max-w-7xl mx-auto mt-10 px-10 animate-fade-in">
+          {/* Top Section */}
+          <section className="flex gap-5 bg-slate-800 p-5 rounded-lg">
+            {/* Dark Cover Placeholder */}
+            <div className="h-64 w-[200px] rounded-lg" />
+
+            <div className="flex-1 space-y-4">
+              <div className="h-8 w-1/2 rounded" />
+              <div className="h-4 w-1/3 rounded" />
+              <div className="h-4 w-1/4 rounded" />
+              <div className="h-4 w-1/2 rounded" />
+              <div className="h-8 w-32 rounded mt-4" />
+            </div>
+          </section>
+
+          {/* Screenshots Section */}
+          <section className="grid grid-cols-6 bg-slate-800 rounded-lg mt-5 gap-4 p-5">
+            <div className="col-span-6 h-6 w-40 rounded mb-4" />
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="h-32 rounded" />
+            ))}
+          </section>
+
+          {/* Story Section */}
+          <section className="p-5 bg-slate-800 rounded-lg mt-5 space-y-4">
+            <div className="h-6 w-48 rounded" />
+            <div className="h-4 w-full rounded" />
+            <div className="h-4 w-5/6 rounded" />
+            <div className="h-4 w-2/3 rounded" />
+          </section>
+
+          {/* Platforms / Genres */}
+          <section className="p-5 bg-slate-800 rounded-lg mt-5 grid grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <div className="h-5 w-32 rounded" />
+              <div className="h-4 w-24 rounded" />
+              <div className="h-4 w-20 rounded" />
+            </div>
+            <div className="space-y-3">
+              <div className="h-5 w-32 rounded" />
+              <div className="h-4 w-24 rounded" />
+              <div className="h-4 w-20 rounded" />
+            </div>
+          </section>
+        </main>
+      )}
 
       {!loading && !error && game && (
         <main className="max-w-7xl mx-auto mt-10 px-10">
@@ -161,7 +206,7 @@ function GameById() {
                 <span>
                   {game?.platforms?.map((platform) => platform.name).join(", ")}
                 </span>
-                <LikeButtonSimplified gameId={game?.id?.toString() || ""} />
+                <LikeButtonSimplified gameId={game?.id || 0} />
               </div>
             </div>
           </section>

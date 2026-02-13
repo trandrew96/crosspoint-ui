@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { gameAPI } from "../utils/apiClient";
 
 interface LikeButtonSimplifiedProps {
-  gameId: string;
+  gameId: number;
   initialLiked?: boolean;
   onLikeChange?: (isLiked: boolean) => void;
 }

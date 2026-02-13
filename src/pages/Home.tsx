@@ -76,8 +76,17 @@ const Home: React.FC = () => {
           <h1 className="text-2xl m-0">Most Popular Games</h1>
 
           {isLoading && (
-            <div className="my-8">
-              <p>Loading games...</p>
+            <div className="max-w-7xl mx-auto">
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5 px-5">
+                {Array.from({ length: 54 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="relative rounded-lg overflow-hidden bg-gray-800"
+                  >
+                    <div className="w-full h-64 animate-pulse bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700" />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
@@ -92,7 +101,7 @@ const Home: React.FC = () => {
 
           {!isLoading && data && data.results.length > 0 && (
             <main className="max-w-7xl mx-auto text-center">
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5 px-5 md:px-0">
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5 px-5">
                 {data.results.map((item: Game) => (
                   <div
                     key={item.id}
@@ -136,17 +145,20 @@ const Home: React.FC = () => {
 
               {/* Bottom pagination controls */}
               <div className="flex justify-center gap-2 my-8">
-                <button
-                  onClick={handlePreviousPage}
-                  disabled={currentPage === 1}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                    currentPage === 1
-                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                      : "bg-blue-600 text-white hover:bg-blue-700"
-                  }`}
-                >
-                  Previous
-                </button>
+                {currentPage > 1 && (
+                  <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                      currentPage === 1
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-blue-600 text-white hover:bg-blue-700"
+                    }`}
+                  >
+                    Previous
+                  </button>
+                )}
+
                 <span className="px-4 py-2 flex items-center">
                   Page {currentPage}
                 </span>

@@ -21,7 +21,7 @@ interface UseGameLikeResult {
  * @returns Object with like state and actions
  */
 export const useGameLike = (
-  gameId: string,
+  gameId: number,
   initialLiked: boolean = false,
 ): UseGameLikeResult => {
   const [isLiked, setIsLiked] = useState<boolean>(initialLiked);

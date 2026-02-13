@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -39,7 +39,8 @@ const Nav = () => {
             </Link>
             {user ? (
               <Link to="/profile" className="text-white hover:text-gray-300">
-                {user.email}
+                Account
+                {/* {user.email} */}
               </Link>
             ) : (
               <>

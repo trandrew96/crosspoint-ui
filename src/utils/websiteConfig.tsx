@@ -17,7 +17,6 @@ import {
   SiGogdotcom,
   SiPlaystation,
   SiNintendoswitch,
-  SiBox,
 } from "react-icons/si";
 
 export const WebsiteType = {

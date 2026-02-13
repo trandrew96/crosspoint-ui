@@ -10,7 +10,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   // To create the user with email and password
-  const handleCreateUser = async (e) => {
+  const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);

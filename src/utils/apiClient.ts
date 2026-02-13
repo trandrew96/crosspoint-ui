@@ -15,12 +15,6 @@ interface FetchOptions extends RequestInit {
 /**
  * API Response types
  */
-interface ApiResponse<T = any> {
-  success: boolean;
-  message?: string;
-  data?: T;
-}
-
 interface LikeGameResponse {
   success: boolean;
   message: string;
@@ -101,7 +95,7 @@ export const gameAPI = {
   /**
    * Like a game
    */
-  likeGame: async (gameId: string): Promise<LikeGameResponse> => {
+  likeGame: async (gameId: number): Promise<LikeGameResponse> => {
     return authenticatedFetch<LikeGameResponse>("/games/like", {
       method: "POST",
       body: JSON.stringify({ game_id: gameId }),
