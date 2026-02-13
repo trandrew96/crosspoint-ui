@@ -169,7 +169,7 @@ function GameById() {
 
       {!loading && !error && game && (
         <main className="max-w-7xl mx-auto mt-10 px-10">
-          <section className="flex gap-5 max-w-7xl mx-auto mt-4 bg-slate-800 p-5 rounded-lg">
+          <section className="flex gap-5 max-w-7xl mx-auto mt-4 bg-slate-800 p-5 rounded-lg drop-shadow-md">
             <img
               className="h-64 object-cover rounded-lg"
               src={game?.cover?.url}
@@ -211,7 +211,7 @@ function GameById() {
             </div>
           </section>
 
-          <section className="grid grid-cols-6 bg-slate-800 rounded-lg mt-5 gap-4 p-5">
+          <section className="grid grid-cols-6 bg-slate-800 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
             <h2 className="col-span-6 text-xl font-bold">Screenshots</h2>
             {game?.screenshots?.map((screenshot: Screenshot, index: number) => (
               <img
@@ -223,7 +223,7 @@ function GameById() {
             ))}
           </section>
 
-          <section className="p-5 bg-slate-800 rounded-lg mt-5">
+          <section className="p-5 bg-slate-800 rounded-lg mt-5 drop-shadow-md">
             <h2 className="text-2xl font-bold mb-5">Storyline</h2>
             <p> {game?.storyline || game?.summary}</p>
           </section>
@@ -251,7 +251,7 @@ function GameById() {
           {getWebsitesByCategory("social").length > 0 &&
             getWebsitesByCategory("store").length > 0 && (
               <>
-                <section className="p-5 bg-slate-800 rounded-lg mt-5">
+                <section className="p-5 bg-slate-800 rounded-lg mt-5 drop-shadow-md">
                   <h2 className="text-2xl font-bold mb-2">Socials</h2>
                   <div className="flex gap-4 flex-wrap">
                     {getWebsitesByCategory("social").map((website: Website) => {

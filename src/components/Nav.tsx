@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { IoGameController } from "react-icons/io5";
 
 const Nav = () => {
   const { user, loading } = useAuth();
@@ -9,11 +10,16 @@ const Nav = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gray-800 p-4 drop-shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="text-white font-bold text-xl">
-          <Link to="/">CrossPoint</Link>
+          <Link to="/">
+            <div className="flex gap-2 justify-center items-center">
+              <IoGameController size={28} className="text-white" />
+              <span>CrossPoint</span>
+            </div>
+          </Link>
         </div>
 
         {/* Hamburger Button (mobile only) */}
