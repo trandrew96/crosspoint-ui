@@ -1,8 +1,11 @@
 import Nav from "../components/Nav";
 import { useAuth } from "../context/AuthContext";
-import { auth } from "../config/firebase"; // Adjust the path based on your file structure
+import { auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
 import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
+import { gameAPI } from "../utils/apiClient";
+import { Link } from "react-router-dom";
 
 const handleSignOut = async () => {
   try {
@@ -15,8 +18,40 @@ const handleSignOut = async () => {
 
 type Props = {};
 
+interface LikedGame {
+  id: number;
+  name: string;
+  cover?: {
+    url: string;
+  };
+}
+
 function Profile({}: Props) {
   const { user, loading } = useAuth();
+  const [likedGames, setLikedGames] = useState<LikedGame[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      document.title = `${user.displayName || user.email}'s Profile - CrossPoint`;
+    }
+  }, [user]);
+
+  useEffect(() => {
+    // Fetch liked games when user is available
+    const fetchLikedGames = async () => {
+      if (!user) return;
+
+      try {
+        const response = await gameAPI.getLikedGames();
+
+        setLikedGames(response.liked_games);
+      } catch (error) {
+        console.error("Error fetching liked games:", error);
+      }
+    };
+
+    fetchLikedGames();
+  }, [user]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -34,6 +69,32 @@ function Profile({}: Props) {
       <Nav />
       <main className="max-w-7xl mx-auto text-center mt-10">
         <div>Profile</div>
+        <h1 className="text-2xl font-bold">
+          Welcome, {user?.displayName || user.email}
+        </h1>
+        <h2>Likes</h2>
+        {likedGames.length > 0 ? (
+          <div className="grid grid-cols-12 gap-4 my-5">
+            {likedGames.map((item: LikedGame, index: number) => (
+              <div
+                className="rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
+                key={index}
+              >
+                <Link to={`/games/${item.id}`}>
+                  <img
+                    className="h-32 w-32 object-cover rounded-lg"
+                    src={item.cover?.url || ""}
+                    alt={item.name}
+                    width={200}
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No liked games yet</p>
+        )}
+
         <div>
           <p>Email: {user.email}</p>
           <p>User ID: {user.uid}</p>

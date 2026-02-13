@@ -80,11 +80,22 @@ async function authenticatedFetch<T = any>(
  * API methods for game-related actions
  */
 export const gameAPI = {
-  // Get game details by ID
+  /**
+   * Get game details by ID (PUBLIC - no auth required)
+   */
   getGameById: async (gameId: string): Promise<any> => {
-    return authenticatedFetch(`/games/${gameId}`, {
+    const response = await fetch(`${API_BASE_URL}/games/${gameId}`, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch game: ${response.statusText}`);
+    }
+
+    return response.json();
   },
 
   /**
@@ -100,15 +111,27 @@ export const gameAPI = {
   /**
    * Unlike a game
    */
-  unlikeGame: async (gameId: string): Promise<LikeGameResponse> => {
+  unlikeGame: async (gameId: number): Promise<LikeGameResponse> => {
     return authenticatedFetch<LikeGameResponse>("/games/like", {
       method: "DELETE",
       body: JSON.stringify({ game_id: gameId }),
     });
   },
 
-  checkGameLiked: async (gameId: string): Promise<{ liked: boolean }> => {
+  /**
+   * Check if a game is liked by the current user
+   */
+  checkGameLiked: async (gameId: number): Promise<{ liked: boolean }> => {
     return authenticatedFetch<{ liked: boolean }>(`/games/${gameId}/liked`, {
+      method: "GET",
+    });
+  },
+
+  /**
+   * Get all liked games for the current user
+   */
+  getLikedGames: async (): Promise<any> => {
+    return authenticatedFetch("/user/liked-games", {
       method: "GET",
     });
   },
