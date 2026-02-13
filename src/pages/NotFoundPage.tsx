@@ -1,5 +1,3 @@
-import Nav from "../components/Navbar";
-
 const NotFoundPage = () => {
   return (
     <div className="flex justify-center items-center h-screen">
