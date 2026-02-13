@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { gameAPI } from "../utils/apiClient";
+import { auth } from "../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import type { User } from "firebase/auth";
 
 interface LikeButtonSimplifiedProps {
   gameId: number;
@@ -12,15 +15,32 @@ const LikeButtonSimplified: React.FC<LikeButtonSimplifiedProps> = ({
   initialLiked = false,
   onLikeChange,
 }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isLiked, setIsLiked] = useState<boolean>(initialLiked);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Start with true
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
+
+  // Listen for auth state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
-    // Check if the game is already liked when the component mounts
-    const checkLikedStatus = async () => {
-      if (!gameId) return; // Guard clause
+    // Only check liked status if user is logged in
+    if (!user) {
+      return;
+    }
 
+    const checkLikedStatus = async () => {
+      if (!gameId) return;
+
+      setIsLoading(true);
       try {
         const response = await gameAPI.checkGameLiked(gameId);
         setIsLiked(response.liked);
@@ -36,13 +56,14 @@ const LikeButtonSimplified: React.FC<LikeButtonSimplifiedProps> = ({
     };
 
     checkLikedStatus();
-  }, [gameId]);
+  }, [gameId, user]);
 
   const handleToggleLike = async (): Promise<void> => {
+    if (!user) return;
+
     setIsLoading(true);
     setError(null);
 
-    // Optimistic update
     const previousLikedState = isLiked;
     setIsLiked(!isLiked);
 
@@ -55,9 +76,7 @@ const LikeButtonSimplified: React.FC<LikeButtonSimplifiedProps> = ({
         onLikeChange?.(true);
       }
     } catch (err) {
-      // Revert on error
       setIsLiked(previousLikedState);
-
       const errorMessage =
         err instanceof Error ? err.message : "An unknown error occurred";
       console.error("Error toggling like:", err);
@@ -69,17 +88,35 @@ const LikeButtonSimplified: React.FC<LikeButtonSimplifiedProps> = ({
 
   return (
     <div>
-      <button
-        onClick={handleToggleLike}
-        disabled={isLoading}
-        className={`px-5 py-2 rounded-lg transition-all ${
-          isLiked
-            ? "bg-red-500 hover:bg-red-600"
-            : "bg-blue-500 hover:bg-blue-600"
-        } text-white disabled:opacity-60 disabled:cursor-not-allowed`}
+      {/* Wrapper div to handle hover events */}
+      <div
+        onMouseEnter={() => !user && setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+        className="relative inline-block"
       >
-        {isLoading ? "Loading..." : isLiked ? "❤️ Liked" : "🤍 Like"}
-      </button>
+        <button
+          onClick={handleToggleLike}
+          disabled={!user || isLoading}
+          className={`px-5 py-2 rounded-lg transition-all ${
+            !user
+              ? "bg-gray-500 cursor-not-allowed opacity-60"
+              : isLiked
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-blue-500 hover:bg-blue-600"
+          } text-white disabled:opacity-60 disabled:cursor-not-allowed`}
+        >
+          {isLoading ? "Loading..." : isLiked ? "❤️ Liked" : "🤍 Like"}
+        </button>
+
+        {/* Tooltip for non-logged-in users */}
+        {showTooltip && !user && (
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap shadow-lg z-10">
+            Sign in to like games
+            {/* Tooltip arrow */}
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+          </div>
+        )}
+      </div>
 
       {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
     </div>
