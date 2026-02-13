@@ -11,6 +11,13 @@ class Footer extends Component<Props, State> {
     return (
       <footer className="mt-6 text-slate-400 text-center">
         <small>© {new Date().getFullYear()} CrossPoint</small>
+        <br />
+        <a
+          href="https://www.flaticon.com/free-icons/game-console"
+          title="game console icons"
+        >
+          Game console icons created by Hilmy Abiyyu A. - Flaticon
+        </a>
       </footer>
     );
   }
