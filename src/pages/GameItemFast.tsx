@@ -39,6 +39,11 @@ interface InvolvedCompany {
   publisher?: boolean;
 }
 
+interface Video {
+  name?: string;
+  video_id?: string;
+}
+
 interface Game {
   id?: number;
   name?: string;
@@ -53,6 +58,7 @@ interface Game {
   platforms?: Platform[];
   game_type?: number;
   involved_companies?: InvolvedCompany[];
+  videos?: Video[];
   [key: string]: any;
 }
 
@@ -223,6 +229,27 @@ function GameById() {
             ))}
           </section>
 
+          <section className="grid grid-cols-6 bg-slate-800 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
+            <h2 className="col-span-6 text-xl font-bold">Youtube Videos</h2>
+            {game?.videos?.map((video: any, index: number) => (
+              <a
+                href={`https://www.youtube.com/watch?v=${video.video_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={index}
+              >
+                <div>
+                  <img
+                    className="h-32 object-cover mx-auto rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
+                    src={`https://img.youtube.com/vi/${video.video_id}/0.jpg`}
+                    alt={video.name || `Video ${index + 1}`}
+                  />
+                  <p className="text-center mt-2">{video.name}</p>
+                </div>
+              </a>
+            ))}
+          </section>
+
           <section className="p-5 bg-slate-800 rounded-lg mt-5 drop-shadow-md">
             <h2 className="text-2xl font-bold mb-5">Storyline</h2>
             <p> {game?.storyline || game?.summary}</p>
@@ -301,20 +328,6 @@ function GameById() {
                       </div>
                     </>
                   )}
-
-                  {/* <ul>
-              {game?.websites?.map((website: Website) => (
-                <li key={website.id}>
-                  <a
-                    href={website.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {website.url}
-                  </a>
-                </li>
-              ))}
-            </ul> */}
                 </section>
               </>
             )}
