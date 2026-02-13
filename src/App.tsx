@@ -11,7 +11,7 @@ import GameById from "./pages/GameItemFast";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Home /> },
-  { path: "/explore", element: <Search /> },
+  { path: "/search", element: <Search /> },
   { path: "/sign-up", element: <SignUp /> },
   { path: "/sign-in", element: <SignIn /> },
   { path: "/profile", element: <Profile /> },

@@ -95,16 +95,40 @@ const Home: React.FC = () => {
               <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5 px-5 md:px-0">
                 {data.results.map((item: Game) => (
                   <div
-                    className="rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
                     key={item.id}
+                    className="group relative transition-all duration-300 ease-out"
                   >
                     <Link to={`/games/${item.id}`}>
-                      <img
-                        className="w-full h-64 object-cover rounded-lg"
-                        src={item.cover?.url}
-                        alt={item.name}
-                        width={200}
+                      {/* Outer Glow */}
+                      <div
+                        className="absolute -inset-2 rounded-xl opacity-0 
+                     group-hover:opacity-100
+                     transition-opacity duration-300
+                     bg-gradient-to-r 
+                     from-indigo-500 via-purple-500 to-pink-500
+                     blur-lg"
                       />
+
+                      {/* Border Ring (separate layer) */}
+                      <div
+                        className="absolute inset-0 rounded-xl 
+                     opacity-0 group-hover:opacity-100
+                     transition-opacity duration-300
+                     bg-gradient-to-r 
+                     from-indigo-500 via-purple-500 to-pink-500"
+                      />
+
+                      {/* Card Content (ALWAYS visible) */}
+                      <div className="relative rounded-lg overflow-hidden bg-gray-900">
+                        <img
+                          className="w-full h-64 object-cover rounded-lg
+                       transition-all duration-300 ease-out
+                       group-hover:brightness-110"
+                          src={item.cover?.url}
+                          alt={item.name}
+                          width={200}
+                        />
+                      </div>
                     </Link>
                   </div>
                 ))}

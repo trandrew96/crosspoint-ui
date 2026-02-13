@@ -74,7 +74,7 @@ function Profile({}: Props) {
         </h1>
         <h2>Likes</h2>
         {likedGames.length > 0 ? (
-          <div className="grid grid-cols-12 gap-4 my-5">
+          <div className="grid grid-cols-8 gap-4 my-5 max-w-5xl mx-auto">
             {likedGames.map((item: LikedGame, index: number) => (
               <div
                 className="rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
