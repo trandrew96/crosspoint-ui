@@ -4,14 +4,14 @@ import { useAuth } from "../context/AuthContext";
 import { IoGameController } from "react-icons/io5";
 import { RiAccountCircleFill } from "react-icons/ri";
 
-const Nav = () => {
+const Navbar = () => {
   const { user, loading } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   if (loading) return <div>Loading...</div>;
 
   return (
-    <nav className="bg-gray-800 p-4 drop-shadow-md">
+    <nav className="bg-gray-800/50 p-4 drop-shadow-md fixed top-0 w-full backdrop-blur-md bg-bg/70 z-50">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="text-white font-bold text-xl">
@@ -35,7 +35,7 @@ const Nav = () => {
         <div
           className={`${
             isOpen ? "block" : "hidden"
-          } absolute md:static top-16 left-0 w-full md:w-auto bg-gray-800 md:flex md:space-x-4 z-10`}
+          } absolute md:static top-16 left-0 w-full md:w-auto md:flex md:space-x-4 z-10`}
         >
           <div className="flex flex-col md:flex-row md:items-center p-4 md:p-0 space-y-2 md:space-y-0 md:space-x-4">
             <Link to="/" className="text-white hover:text-gray-300">
@@ -69,4 +69,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Navbar;

@@ -1,8 +1,6 @@
-import Nav from "../components/Nav";
 import { useAuth } from "../context/AuthContext";
 import { auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
-import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import { gameAPI } from "../utils/apiClient";
 import { Link } from "react-router-dom";
@@ -58,7 +56,6 @@ function Profile({}: Props) {
   if (!user) {
     return (
       <>
-        <Nav />
         <h2>Please return to home page</h2>
       </>
     );
@@ -66,7 +63,6 @@ function Profile({}: Props) {
 
   return (
     <>
-      <Nav />
       <main className="max-w-7xl mx-auto text-center mt-10">
         <div>Profile</div>
         <h1 className="text-2xl font-bold">
@@ -105,7 +101,6 @@ function Profile({}: Props) {
           Sign Out
         </button>
       </main>
-      <Footer />
     </>
   );
 }

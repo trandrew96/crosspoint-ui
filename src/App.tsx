@@ -1,5 +1,7 @@
 import "./App.css";
 import { createBrowserRouter } from "react-router-dom";
+import MainLayout from "./components/layout/MainLayout";
+
 import Search from "./pages/Search";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -11,15 +13,20 @@ import GameById from "./pages/GameItemFast";
 import Explore from "./pages/Explore";
 
 export const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/search", element: <Search /> },
-  { path: "/explore", element: <Explore /> },
-  { path: "/sign-up", element: <SignUp /> },
-  { path: "/sign-in", element: <SignIn /> },
-  { path: "/profile", element: <Profile /> },
-  { path: "/games/:id", element: <GameById /> },
-  { path: "/about", element: <About /> },
-  { path: "*", element: <NotFoundPage /> },
+  {
+    element: <MainLayout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/search", element: <Search /> },
+      { path: "/explore", element: <Explore /> },
+      { path: "/sign-up", element: <SignUp /> },
+      { path: "/sign-in", element: <SignIn /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/games/:id", element: <GameById /> },
+      { path: "/about", element: <About /> },
+      { path: "*", element: <NotFoundPage /> },
+    ],
+  },
 ]);
 
 function App() {

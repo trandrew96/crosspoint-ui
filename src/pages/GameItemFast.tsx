@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import LikeButtonSimplified from "../components/LikeButtonSimplified";
 import { WEBSITE_CONFIG } from "../utils/websiteConfig";
 import { gameAPI } from "../utils/apiClient";
@@ -123,12 +121,10 @@ function GameById() {
 
   return (
     <>
-      <Nav />
-
       {loading && (
-        <main className="max-w-7xl mx-auto mt-10 px-10 animate-fade-in">
+        <div className="animate-fade-in">
           {/* Top Section */}
-          <section className="flex gap-5 bg-slate-800 p-5 rounded-lg">
+          <section className="flex gap-5 bg-slate-800/75 p-5 rounded-lg">
             {/* Dark Cover Placeholder */}
             <div className="h-64 w-[200px] rounded-lg" />
 
@@ -142,7 +138,7 @@ function GameById() {
           </section>
 
           {/* Screenshots Section */}
-          <section className="grid grid-cols-6 bg-slate-800 rounded-lg mt-5 gap-4 p-5">
+          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5">
             <div className="col-span-6 h-6 w-40 rounded mb-4" />
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="h-32 rounded" />
@@ -150,7 +146,7 @@ function GameById() {
           </section>
 
           {/* Story Section */}
-          <section className="p-5 bg-slate-800 rounded-lg mt-5 space-y-4">
+          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 space-y-4">
             <div className="h-6 w-48 rounded" />
             <div className="h-4 w-full rounded" />
             <div className="h-4 w-5/6 rounded" />
@@ -158,7 +154,7 @@ function GameById() {
           </section>
 
           {/* Platforms / Genres */}
-          <section className="p-5 bg-slate-800 rounded-lg mt-5 grid grid-cols-2 gap-6">
+          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 grid grid-cols-2 gap-6">
             <div className="space-y-3">
               <div className="h-5 w-32 rounded" />
               <div className="h-4 w-24 rounded" />
@@ -170,12 +166,12 @@ function GameById() {
               <div className="h-4 w-20 rounded" />
             </div>
           </section>
-        </main>
+        </div>
       )}
 
       {!loading && !error && game && (
-        <main className="max-w-7xl mx-auto mt-10 px-10">
-          <section className="flex gap-5 max-w-7xl mx-auto mt-4 bg-slate-800 p-5 rounded-lg drop-shadow-md">
+        <>
+          <section className="flex gap-5 max-w-7xl mx-auto mt-4 bg-slate-800/75 p-5 rounded-lg drop-shadow-md">
             <img
               className="h-64 object-cover rounded-lg"
               src={game?.cover?.url}
@@ -183,7 +179,9 @@ function GameById() {
               width={200}
             />
             <div>
-              <h1 className="text-4xl font-bold">{game.name}</h1>
+              <h1 className="text-4xl font-semibold tracking-tight mb-2">
+                {game.name}
+              </h1>
               <div className="flex flex-col gap-2 mt-2">
                 <span>
                   {game?.involved_companies &&
@@ -217,8 +215,10 @@ function GameById() {
             </div>
           </section>
 
-          <section className="grid grid-cols-6 bg-slate-800 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
-            <h2 className="col-span-6 text-xl font-bold">Screenshots</h2>
+          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
+            <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
+              Screenshots
+            </h2>
             {game?.screenshots?.map((screenshot: Screenshot, index: number) => (
               <a
                 href={screenshot.url?.replace("t_thumb", "t_1080p")}
@@ -236,8 +236,10 @@ function GameById() {
             ))}
           </section>
 
-          <section className="grid grid-cols-6 bg-slate-800 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
-            <h2 className="col-span-6 text-xl font-bold">Youtube Videos</h2>
+          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
+            <h2 className="col-span-6 col-span-6 text-2xl font-semibold tracking-tight mb-2">
+              Youtube Videos
+            </h2>
             {game?.videos?.map((video: any, index: number) => (
               <a
                 href={`https://www.youtube.com/watch?v=${video.video_id}`}
@@ -257,14 +259,18 @@ function GameById() {
             ))}
           </section>
 
-          <section className="p-5 bg-slate-800 rounded-lg mt-5 drop-shadow-md">
-            <h2 className="text-2xl font-bold mb-5">Storyline</h2>
+          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 drop-shadow-md">
+            <h2 className="text-2xl font-semibold tracking-tight mb-2">
+              Storyline
+            </h2>
             <p> {game?.storyline || game?.summary}</p>
           </section>
-          <section className="p-5 bg-slate-800 rounded-lg mt-5">
+          <section className="p-5 bg-slate-800/75 rounded-lg mt-5">
             <div className="grid grid-cols-2 max-w-xl ">
               <div>
-                <h2 className="text-xl font-bold">Platforms</h2>
+                <h2 className="text-xl font-semibold tracking-tight mb-2">
+                  Platforms
+                </h2>
                 <ul>
                   {game?.platforms?.map((platform) => (
                     <li key={platform?.name}>{platform?.name}</li>
@@ -272,7 +278,9 @@ function GameById() {
                 </ul>
               </div>
               <div>
-                <h2 className="text-xl font-bold">Genres</h2>
+                <h2 className="text-xl font-semibold tracking-tight mb-2">
+                  Genres
+                </h2>
                 <ul>
                   {game?.genres?.map((platform) => (
                     <li key={platform?.name}>{platform?.name}</li>
@@ -285,9 +293,11 @@ function GameById() {
           {getWebsitesByCategory("social").length > 0 &&
             getWebsitesByCategory("store").length > 0 && (
               <>
-                <section className="p-5 bg-slate-800 rounded-lg mt-5 drop-shadow-md">
-                  <h2 className="text-2xl font-bold mb-2">Socials</h2>
-                  <div className="flex gap-4 flex-wrap">
+                <section className="p-5 bg-slate-800/75 rounded-lg mt-5 drop-shadow-md">
+                  <h2 className="text-xl font-semibold tracking-tight mb-2">
+                    Socials
+                  </h2>
+                  <div className="flex gap-4 flex-wrap mb-5">
                     {getWebsitesByCategory("social").map((website: Website) => {
                       const config = WEBSITE_CONFIG[website.type];
                       if (!config) return null; // Skip if no config
@@ -310,7 +320,9 @@ function GameById() {
 
                   {getWebsitesByCategory("store").length > 0 && (
                     <>
-                      <h2 className="text-2xl font-bold mb-2 mt-5">Stores</h2>
+                      <h2 className="text-xl font-semibold tracking-tight mb-2">
+                        Stores
+                      </h2>
                       <div className="flex gap-4 flex-wrap">
                         {getWebsitesByCategory("store").map(
                           (website: Website) => {
@@ -342,10 +354,8 @@ function GameById() {
           {/* <div className="w-20">
             <pre>{JSON.stringify(game, null, 2)}</pre>
           </div> */}
-        </main>
+        </>
       )}
-
-      <Footer />
     </>
   );
 }

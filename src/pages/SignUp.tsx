@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { auth } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import Nav from "../components/Nav";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -22,8 +21,9 @@ const SignUp = () => {
 
   return (
     <div>
-      <Nav />
-      <h2 className="text-2xl my-5 font-bold">Register your Account</h2>
+      <h2 className="text-2xl my-5 text-center font-bold">
+        Register your Account
+      </h2>
       <form onSubmit={handleCreateUser}>
         <div className="flex flex-col gap-2 max-w-96 mx-auto">
           <div>

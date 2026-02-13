@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import Nav from "../components/Nav";
 import { Link, useSearchParams } from "react-router-dom";
-import Footer from "../components/Footer";
 import { useQuery } from "@tanstack/react-query";
 
 interface Game {
@@ -75,11 +73,7 @@ function ExploreFast() {
 
   return (
     <div>
-      <div className="mb-4">
-        <Nav />
-      </div>
-
-      <main className="max-w-7xl mx-auto text-center">
+      <>
         {/* Search Bar */}
         <form onSubmit={handleSubmit}>
           <div className="relative text-gray-600 relative mx-auto w-80 rounded-full bg-white flex pr-4">
@@ -170,9 +164,7 @@ function ExploreFast() {
             )}
           </main>
         )}
-
-        <Footer />
-      </main>
+      </>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { auth } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import Nav from "../components/Nav";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -19,8 +18,7 @@ const SignIn = () => {
 
   return (
     <div>
-      <Nav />
-      <h2 className="text-2xl my-5 font-bold">Sign In</h2>
+      <h2 className="text-2xl my-5 font-bold text-center">Sign In</h2>
       <form onSubmit={handleSignIn}>
         <div className="flex flex-col gap-2 max-w-96 mx-auto">
           <div>
