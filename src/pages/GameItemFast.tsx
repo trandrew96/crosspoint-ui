@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import LikeButtonSimplified from "../components/LikeButtonSimplified";
 import { WEBSITE_CONFIG } from "../utils/websiteConfig";
 import { gameAPI } from "../utils/apiClient";
+import { FaSteam } from "react-icons/fa";
+import { SiIgdb } from "react-icons/si";
 
 interface Cover {
   url?: string;
@@ -57,6 +59,11 @@ interface Game {
   game_type?: number;
   involved_companies?: InvolvedCompany[];
   videos?: Video[];
+  screenshots?: Screenshot[];
+  websites?: Website[];
+  steam_negative_reviews?: number;
+  steam_positive_reviews?: number;
+  steam_review_score?: number;
   [key: string]: any;
 }
 
@@ -210,9 +217,37 @@ function GameById() {
                 <span>
                   {game?.platforms?.map((platform) => platform.name).join(", ")}
                 </span>
+
                 <LikeButtonSimplified gameId={game?.id || 0} />
               </div>
             </div>
+            <section className="mx-auto flex items-center gap-10">
+              {game.steam_review_score !== null && (
+                <div>
+                  <div>
+                    <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
+                      {game.steam_review_score?.toFixed(1)}
+                    </div>
+                    <div className="flex items-center w-full justify-center">
+                      <FaSteam size={32} className="inline-block mr-1" />
+                    </div>
+                    {/* <br />({game.steam_positive_reviews} positive,{" "}
+                  {game.steam_negative_reviews} negative) */}
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
+                  {game?.rating ? game.rating.toFixed(1) : "N/A"}
+                </div>
+                <div className="flex items-center w-full justify-center">
+                  <SiIgdb size={32} className="inline-block mr-1" />
+                </div>
+                {/* <br />({game.steam_positive_reviews} positive,{" "}
+                  {game.steam_negative_reviews} negative) */}
+              </div>
+            </section>
           </section>
 
           <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
