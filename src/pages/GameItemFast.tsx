@@ -235,29 +235,44 @@ function GameById() {
             </div>
 
             {/* Row 2 on mobile: Ratings */}
-            <section className="flex items-center justify-center lg:justify-end gap-10 lg:mx-auto">
-              {game.steam_review_score && (
+            {game.steam_review_score || game.rating ? (
+              <section className="flex items-center justify-center lg:justify-end gap-10 lg:mx-auto">
+                {game.steam_review_score && (
+                  <div className="text-center">
+                    <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
+                      {game.steam_review_score?.toFixed(1)}
+                    </div>
+                    <div className="flex items-center justify-center">
+                      <FaSteam size={32} className="inline-block mr-1" />
+                    </div>
+                  </div>
+                )}
+
                 <div className="text-center">
                   <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
-                    {game.steam_review_score?.toFixed(1)}
+                    {game?.rating ? game.rating.toFixed(1) : "N/A"}
                   </div>
                   <div className="flex items-center justify-center">
-                    <FaSteam size={32} className="inline-block mr-1" />
+                    <SiIgdb size={32} className="inline-block mr-1" />
                   </div>
                 </div>
-              )}
-
-              <div className="text-center">
-                <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
-                  {game?.rating ? game.rating.toFixed(1) : "N/A"}
-                </div>
-                <div className="flex items-center justify-center">
-                  <SiIgdb size={32} className="inline-block mr-1" />
-                </div>
-              </div>
-            </section>
+              </section>
+            ) : (
+              <section className="flex items-center justify-center lg:justify-end gap-10 lg:mx-auto">
+                <h2>Ratings TBA</h2>
+              </section>
+            )}
           </section>
 
+          {/* Storyline */}
+          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 drop-shadow-md">
+            <h2 className="text-2xl font-semibold tracking-tight mb-2">
+              Storyline
+            </h2>
+            <p> {game?.storyline || game?.summary}</p>
+          </section>
+
+          {/* Screenshots */}
           <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
             <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
               Screenshots
@@ -279,6 +294,7 @@ function GameById() {
             ))}
           </section>
 
+          {/* Videos */}
           <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
             <h2 className="col-span-6 col-span-6 text-2xl font-semibold tracking-tight mb-2">
               Youtube Videos
@@ -300,13 +316,6 @@ function GameById() {
                 </div>
               </a>
             ))}
-          </section>
-
-          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 drop-shadow-md">
-            <h2 className="text-2xl font-semibold tracking-tight mb-2">
-              Storyline
-            </h2>
-            <p> {game?.storyline || game?.summary}</p>
           </section>
 
           <section className="p-5 bg-slate-800/75 rounded-lg mt-5">
