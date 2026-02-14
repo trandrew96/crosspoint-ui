@@ -3,7 +3,6 @@ import { auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { gameAPI } from "../utils/apiClient";
-import { Link } from "react-router-dom";
 import { GameCard } from "../components/GameCard";
 
 const handleSignOut = async () => {
@@ -73,7 +72,7 @@ function Profile({}: Props) {
         {likedGames.length > 0 ? (
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5">
             {likedGames.map((game: LikedGame, index: number) => (
-              <GameCard to={`/games/${game.id}`}>
+              <GameCard to={`/games/${game.id}`} key={index}>
                 <img
                   className="object-cover rounded-lg
      transition-all duration-300 ease-out
