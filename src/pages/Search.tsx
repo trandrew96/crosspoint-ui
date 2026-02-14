@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { gameAPI } from "../utils/apiClient";
+import { GameCard } from "../components/GameCard";
 
 interface Game {
   id: number;
@@ -116,14 +117,16 @@ function ExploreFast() {
                     className="rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
                     key={game.id}
                   >
-                    <Link to={`/games/${game.id}`}>
+                    <GameCard to={`/games/${game.id}`}>
                       <img
-                        className="w-full h-64 object-cover rounded-lg"
+                        className="object-cover rounded-lg
+     transition-all duration-300 ease-out
+     group-hover:brightness-110"
                         src={game.cover?.url}
                         alt={game.name}
                         width={200}
                       />
-                    </Link>
+                    </GameCard>
                   </div>
                 ))}
             </div>

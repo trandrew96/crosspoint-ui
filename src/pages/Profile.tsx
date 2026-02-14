@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { gameAPI } from "../utils/apiClient";
 import { Link } from "react-router-dom";
+import { GameCard } from "../components/GameCard";
 
 const handleSignOut = async () => {
   try {
@@ -70,21 +71,18 @@ function Profile({}: Props) {
         </h1>
         <h2>Likes</h2>
         {likedGames.length > 0 ? (
-          <div className="grid grid-cols-8 gap-4 my-5 max-w-5xl mx-auto">
-            {likedGames.map((item: LikedGame, index: number) => (
-              <div
-                className="rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
-                key={index}
-              >
-                <Link to={`/games/${item.id}`}>
-                  <img
-                    className="h-32 w-32 object-cover rounded-lg"
-                    src={item.cover?.url || ""}
-                    alt={item.name}
-                    width={200}
-                  />
-                </Link>
-              </div>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5">
+            {likedGames.map((game: LikedGame, index: number) => (
+              <GameCard to={`/games/${game.id}`}>
+                <img
+                  className="object-cover rounded-lg
+     transition-all duration-300 ease-out
+     group-hover:brightness-110"
+                  src={game.cover?.url}
+                  alt={game.name}
+                  width={200}
+                />
+              </GameCard>
             ))}
           </div>
         ) : (

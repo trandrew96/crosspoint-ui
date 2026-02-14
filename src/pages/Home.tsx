@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { FaStar } from "react-icons/fa";
+import { GameCard } from "../components/GameCard";
 
 // Define the shape of your game data based on what your API returns
 interface Game {
@@ -110,38 +111,16 @@ const Home: React.FC = () => {
                 key={item.id}
                 className="group relative transition-all duration-300 ease-out"
               >
-                <Link to={`/games/${item.id}`}>
-                  {/* Outer Glow */}
-                  <div
-                    className="absolute -inset-2 rounded-xl opacity-0 
-                     group-hover:opacity-100
-                     transition-opacity duration-300
-                     bg-gradient-to-r 
-                     from-indigo-500 via-purple-500 to-pink-500
-                     blur-lg"
+                <GameCard to={`/games/${item.id}`}>
+                  <img
+                    className="object-cover rounded-lg
+     transition-all duration-300 ease-out
+     group-hover:brightness-110"
+                    src={item.cover?.url}
+                    alt={item.name}
+                    width={200}
                   />
-
-                  {/* Border Ring (separate layer) */}
-                  <div
-                    className="absolute inset-0 rounded-xl 
-                     opacity-0 group-hover:opacity-100
-                     transition-opacity duration-300
-                     bg-gradient-to-r 
-                     from-indigo-500 via-purple-500 to-pink-500"
-                  />
-
-                  {/* Card Content (ALWAYS visible) */}
-                  <div className="relative rounded-lg overflow-hidden bg-gray-900">
-                    <img
-                      className="object-cover rounded-lg
-                       transition-all duration-300 ease-out
-                       group-hover:brightness-110"
-                      src={item.cover?.url}
-                      alt={item.name}
-                      width={200}
-                    />
-                  </div>
-                </Link>
+                </GameCard>
               </div>
             ))}
           </div>
