@@ -1,14 +1,14 @@
-// src/pages/Explore.tsx
+// src/pages/Home.tsx
 import { useEffect } from "react";
 import GameRow from "../components/Gamerow";
 import HeroCarousel from "../components/HeroCarousel";
 import { useExploreGames } from "../hooks/useExploreGames";
 
-function Explore() {
+function Home() {
   const { data, loading, error, refetch } = useExploreGames(20);
 
   useEffect(() => {
-    document.title = "Explore Games - CrossPoint";
+    document.title = "Home Games - CrossPoint";
   }, []);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function Explore() {
 
   useEffect(() => {
     if (data) {
-      console.log("Explore data loaded:", data);
+      console.log("Home data loaded:", data);
     }
   }, [data]);
 
@@ -121,7 +121,7 @@ function Explore() {
   if (error) {
     return (
       <div className="space-y-8">
-        <h1 className="text-4xl font-bold">Explore Games</h1>
+        <h1 className="text-4xl font-bold">Home Games</h1>
         <div className="bg-red-500/10 border border-red-500 text-red-500 rounded-lg p-6 text-center">
           <p className="text-lg font-semibold mb-2">Failed to load games</p>
           <p className="text-sm mb-4">{error}</p>
@@ -159,4 +159,4 @@ function Explore() {
   );
 }
 
-export default Explore;
+export default Home;

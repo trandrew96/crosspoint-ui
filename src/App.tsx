@@ -11,7 +11,7 @@ import Account from "./pages/Account";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import GameById from "./pages/GameById";
-import Explore from "./pages/Explore";
+import Home from "./pages/Home";
 import CreateReview from "./pages/CreateReview";
 import MyReviews from "./pages/MyReviews";
 
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
-      { path: "/", element: <Explore /> },
+      { path: "/", element: <Home /> },
       { path: "/popular", element: <Popular /> },
       { path: "/search", element: <Search /> },
       { path: "/signup", element: <SignUp /> },
