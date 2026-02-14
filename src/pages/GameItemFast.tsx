@@ -308,8 +308,69 @@ function GameById() {
             </h2>
             <p> {game?.storyline || game?.summary}</p>
           </section>
+
           <section className="p-5 bg-slate-800/75 rounded-lg mt-5">
-            <div className="grid grid-cols-2 max-w-xl ">
+            <div className="grid grid-cols-3 gap-6">
+              {getWebsitesByCategory("social").length > 0 &&
+                getWebsitesByCategory("store").length > 0 && (
+                  <section>
+                    <h2 className="text-xl font-semibold tracking-tight mb-2">
+                      Socials
+                    </h2>
+                    <div className="flex gap-4 flex-wrap mb-5">
+                      {getWebsitesByCategory("social").map(
+                        (website: Website) => {
+                          const config = WEBSITE_CONFIG[website.type];
+                          if (!config) return null; // Skip if no config
+                          const Icon = config.icon;
+                          return (
+                            <a
+                              key={website.id}
+                              href={website.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
+                              title={config.label}
+                            >
+                              <Icon size={24} />
+                              <span>{config.label}</span>
+                            </a>
+                          );
+                        },
+                      )}
+                    </div>
+
+                    {getWebsitesByCategory("store").length > 0 && (
+                      <>
+                        <h2 className="text-xl font-semibold tracking-tight mb-2">
+                          Stores
+                        </h2>
+                        <div className="flex gap-4 flex-wrap">
+                          {getWebsitesByCategory("store").map(
+                            (website: Website) => {
+                              const config = WEBSITE_CONFIG[website.type];
+                              if (!config) return null; // Skip if no config
+                              const Icon = config.icon;
+                              return (
+                                <a
+                                  key={website.id}
+                                  href={website.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
+                                  title={config.label}
+                                >
+                                  <Icon size={24} />
+                                  <span>{config.label}</span>
+                                </a>
+                              );
+                            },
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </section>
+                )}
               <div>
                 <h2 className="text-xl font-semibold tracking-tight mb-2">
                   Platforms
@@ -332,67 +393,6 @@ function GameById() {
               </div>
             </div>
           </section>
-
-          {getWebsitesByCategory("social").length > 0 &&
-            getWebsitesByCategory("store").length > 0 && (
-              <>
-                <section className="p-5 bg-slate-800/75 rounded-lg mt-5 drop-shadow-md">
-                  <h2 className="text-xl font-semibold tracking-tight mb-2">
-                    Socials
-                  </h2>
-                  <div className="flex gap-4 flex-wrap mb-5">
-                    {getWebsitesByCategory("social").map((website: Website) => {
-                      const config = WEBSITE_CONFIG[website.type];
-                      if (!config) return null; // Skip if no config
-                      const Icon = config.icon;
-                      return (
-                        <a
-                          key={website.id}
-                          href={website.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
-                          title={config.label}
-                        >
-                          <Icon size={24} />
-                          <span>{config.label}</span>
-                        </a>
-                      );
-                    })}
-                  </div>
-
-                  {getWebsitesByCategory("store").length > 0 && (
-                    <>
-                      <h2 className="text-xl font-semibold tracking-tight mb-2">
-                        Stores
-                      </h2>
-                      <div className="flex gap-4 flex-wrap">
-                        {getWebsitesByCategory("store").map(
-                          (website: Website) => {
-                            const config = WEBSITE_CONFIG[website.type];
-                            if (!config) return null; // Skip if no config
-                            const Icon = config.icon;
-                            return (
-                              <a
-                                key={website.id}
-                                href={website.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
-                                title={config.label}
-                              >
-                                <Icon size={24} />
-                                <span>{config.label}</span>
-                              </a>
-                            );
-                          },
-                        )}
-                      </div>
-                    </>
-                  )}
-                </section>
-              </>
-            )}
 
           {/* <div className="w-20">
             <pre>{JSON.stringify(game, null, 2)}</pre>
