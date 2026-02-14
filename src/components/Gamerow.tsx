@@ -94,9 +94,8 @@ function GameRow({ title, games }: GameRowProps) {
   }
 
   return (
-    <section className="mb-10">
+    <section className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-12 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]">
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
-
       {/* Container with padding for chevrons - shifted left to align */}
       <div className="relative px-12 -ml-12">
         {/* Left button - positioned outside content area */}

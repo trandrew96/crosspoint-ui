@@ -25,15 +25,16 @@ function Explore() {
 
   if (loading) {
     return (
-      <div className="space-y-8">
+      <div>
         {/* Hero skeleton */}
         <div className="h-96 bg-gradient-to-r from-slate-800 to-slate-700 rounded-2xl animate-pulse" />
-
-        {/* Loading skeleton for rows */}
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <section key={i} className="mb-10">
+        <div className="h-20" /> {/* Match hero gap */}
+        {/* Loading skeleton for rows with asymmetric spacing */}
+        <div>
+          {/* Row 1 */}
+          <section className="mb-10 pb-8">
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
-            <div className="flex gap-4 overflow-x-auto pb-4">
+            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
                 <div key={j} className="flex-shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
@@ -42,7 +43,77 @@ function Explore() {
               ))}
             </div>
           </section>
-        ))}
+          <div className="h-16" />
+
+          {/* Row 2 */}
+          <section className="mb-10 pb-8">
+            <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
+            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+              {[1, 2, 3, 4, 5, 6, 7].map((j) => (
+                <div key={j} className="flex-shrink-0 w-40">
+                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </section>
+          <div className="h-20" />
+
+          {/* Row 3 */}
+          <section className="mb-10 pb-8">
+            <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
+            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+              {[1, 2, 3, 4, 5, 6, 7].map((j) => (
+                <div key={j} className="flex-shrink-0 w-40">
+                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </section>
+          <div className="h-12" />
+
+          {/* Row 4 */}
+          <section className="mb-10 pb-8">
+            <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
+            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+              {[1, 2, 3, 4, 5, 6, 7].map((j) => (
+                <div key={j} className="flex-shrink-0 w-40">
+                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </section>
+          <div className="h-24" />
+
+          {/* Row 5 */}
+          <section className="mb-10 pb-8">
+            <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
+            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+              {[1, 2, 3, 4, 5, 6, 7].map((j) => (
+                <div key={j} className="flex-shrink-0 w-40">
+                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </section>
+          <div className="h-14" />
+
+          {/* Row 6 */}
+          <section className="mb-10 pb-8">
+            <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
+            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+              {[1, 2, 3, 4, 5, 6, 7].map((j) => (
+                <div key={j} className="flex-shrink-0 w-40">
+                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
     );
   }
@@ -66,17 +137,22 @@ function Explore() {
   }
 
   return (
-    <div className="space-y-12">
+    <div>
       {/* Hero Carousel */}
       <HeroCarousel games={data.trending.slice(0, 5)} />
-
-      {/* Game Rows with subtle shadows */}
-      <div className="space-y-8">
+      <div className="h-20" /> {/* 80px tasteful gap after hero */}
+      {/* Game rows with individual spacing */}
+      <div>
         <GameRow title="Most Anticipated" games={data.mostAnticipated} />
+        <div className="h-16" /> {/* 64px gap */}
         <GameRow title="Trending Now" games={data.trending} />
+        <div className="h-20" /> {/* 80px gap */}
         <GameRow title="Top Rated All Time" games={data.topRated} />
+        <div className="h-12" /> {/* 48px gap */}
         <GameRow title="Recently Released" games={data.recent} />
+        <div className="h-24" /> {/* 96px gap */}
         <GameRow title="Hidden Gems" games={data.hiddenGems} />
+        <div className="h-14" /> {/* 56px gap */}
         <GameRow title="Upcoming Releases" games={data.upcoming} />
       </div>
     </div>
