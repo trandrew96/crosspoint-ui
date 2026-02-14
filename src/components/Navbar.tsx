@@ -146,13 +146,6 @@ const Navbar = () => {
                   >
                     Account Settings
                   </Link>
-                  <Link
-                    to="/liked-games"
-                    onClick={() => setIsProfileDropdownOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
-                  >
-                    Liked Games
-                  </Link>
                   <hr className="my-2 border-gray-700" />
                   <button
                     onClick={handleSignOut}
