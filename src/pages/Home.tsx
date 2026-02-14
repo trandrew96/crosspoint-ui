@@ -1,6 +1,6 @@
 // src/pages/Home.tsx
 import { useEffect } from "react";
-import GameRow from "../components/Gamerow";
+import GameRow from "../components/GameRow";
 import HeroCarousel from "../components/HeroCarousel";
 import { useExploreGames } from "../hooks/useExploreGames";
 
