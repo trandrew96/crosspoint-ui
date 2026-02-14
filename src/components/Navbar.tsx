@@ -97,8 +97,17 @@ const Navbar = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex md:items-center md:space-x-4">
-          <Link to="/popular" className="text-white hover:text-gray-300">
+          <Link
+            to="/popular"
+            className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
+          >
             Popular
+          </Link>
+          <Link
+            to="/profile"
+            className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
+          >
+            My Likes
           </Link>
           <Link
             to="/my-reviews"

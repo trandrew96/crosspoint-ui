@@ -53,14 +53,13 @@ function Profile({}: Props) {
   return (
     <>
       <main className="max-w-7xl mx-auto text-center mt-10">
-        <div>Profile</div>
         <h1 className="text-2xl font-bold">
           Welcome, {user?.displayName || user.email}
         </h1>
-        <span className="text-sm text-gray-500">User ID: {user.uid}</span>
+        {/* <span className="text-sm text-gray-500">User ID: {user.uid}</span> */}
         <h2 className="text-4xl font-semibold mt-4">My Likes</h2>
         {likedGames.length > 0 ? (
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5">
+          <div className="grid grid-cols-3 md:grid-cols-8 gap-4 my-5 mx-auto">
             {likedGames.map((game: LikedGame, index: number) => (
               <GameCard to={`/games/${game.id}`} key={index}>
                 <img
