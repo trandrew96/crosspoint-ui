@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LikeButtonSimplified from "../components/LikeButtonSimplified";
+import { PlatformIcons } from "../components/PlatformIcons";
 import { WEBSITE_CONFIG } from "../utils/websiteConfig";
 import { gameAPI } from "../utils/apiClient";
 import { FaSteam } from "react-icons/fa";
@@ -178,74 +179,80 @@ function GameById() {
 
       {!loading && !error && game && (
         <>
-          <section className="flex gap-5 max-w-7xl mx-auto mt-4 bg-slate-800/75 p-5 rounded-lg drop-shadow-md">
-            <img
-              className="h-64 object-cover rounded-lg"
-              src={game?.cover?.url}
-              alt={game?.name}
-              width={200}
-            />
-            <div>
-              <h1 className="text-4xl font-semibold tracking-tight mb-2">
-                {game.name}
-              </h1>
-              <div className="flex flex-col gap-2 mt-2">
-                <span>
-                  {game?.involved_companies &&
-                  game.involved_companies.length > 0 ? (
-                    <span>
-                      {game.involved_companies
-                        .filter((company) => company.developer)
-                        .map((company) => company.company?.name)
-                        .join(", ")}
-                    </span>
-                  ) : (
-                    <span>Unknown Developer</span>
-                  )}{" "}
-                  • Initial Release:{" "}
-                  {formatReleaseDate(game?.first_release_date)}
-                </span>
-                <span>
-                  Rating: {game?.rating ? game.rating.toFixed(1) : "N/A"}
-                </span>
-                <span>
-                  Aggregated Rating:{" "}
-                  {game?.aggregated_rating
-                    ? game.aggregated_rating.toFixed(1)
-                    : "N/A"}
-                </span>
-                <span>
-                  {game?.platforms?.map((platform) => platform.name).join(", ")}
-                </span>
+          <section className="flex flex-col lg:flex-row gap-5 max-w-7xl mx-auto mt-4 bg-slate-800/75 p-5 rounded-lg drop-shadow-md">
+            {/* Row 1 on mobile: Cover + Info */}
+            <div className="flex flex-col sm:flex-row gap-5">
+              {/* Cover Image */}
+              <div className="w-max mx-auto sm:mx-0">
+                <img
+                  className="h-64 object-cover rounded-lg"
+                  src={game?.cover?.url}
+                  alt={game?.name}
+                  width={200}
+                />
+              </div>
 
-                <LikeButtonSimplified gameId={game?.id || 0} />
+              {/* Game Info */}
+              <div className="flex-1 mx-auto">
+                <h1 className="text-4xl font-semibold tracking-tight mb-2">
+                  {game.name}
+                </h1>
+                <div className="flex flex-col gap-2 mt-2">
+                  <span>
+                    {game?.involved_companies &&
+                    game.involved_companies.length > 0 ? (
+                      <span>
+                        {game.involved_companies
+                          .filter((company) => company.developer)
+                          .map((company) => company.company?.name)
+                          .join(", ")}
+                      </span>
+                    ) : (
+                      <span>Unknown Developer</span>
+                    )}{" "}
+                    • Initial Release:{" "}
+                    {formatReleaseDate(game?.first_release_date)}
+                  </span>
+                  <span>
+                    Rating: {game?.rating ? game.rating.toFixed(1) : "N/A"}
+                  </span>
+                  <span>
+                    Aggregated Rating:{" "}
+                    {game?.aggregated_rating
+                      ? game.aggregated_rating.toFixed(1)
+                      : "N/A"}
+                  </span>
+
+                  <PlatformIcons
+                    platforms={game?.platforms || []}
+                    size={32}
+                    className="flex-wrap"
+                  />
+                  <LikeButtonSimplified gameId={game?.id || 0} />
+                </div>
               </div>
             </div>
-            <section className="mx-auto flex items-center gap-10">
-              {game.steam_review_score !== null && (
-                <div>
-                  <div>
-                    <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
-                      {game.steam_review_score?.toFixed(1)}
-                    </div>
-                    <div className="flex items-center w-full justify-center">
-                      <FaSteam size={32} className="inline-block mr-1" />
-                    </div>
-                    {/* <br />({game.steam_positive_reviews} positive,{" "}
-                  {game.steam_negative_reviews} negative) */}
+
+            {/* Row 2 on mobile: Ratings */}
+            <section className="flex items-center justify-center lg:justify-end gap-10 lg:mx-auto">
+              {game.steam_review_score !== undefined && (
+                <div className="text-center">
+                  <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
+                    {game.steam_review_score?.toFixed(1)}
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <FaSteam size={32} className="inline-block mr-1" />
                   </div>
                 </div>
               )}
 
-              <div>
+              <div className="text-center">
                 <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
                   {game?.rating ? game.rating.toFixed(1) : "N/A"}
                 </div>
-                <div className="flex items-center w-full justify-center">
+                <div className="flex items-center justify-center">
                   <SiIgdb size={32} className="inline-block mr-1" />
                 </div>
-                {/* <br />({game.steam_positive_reviews} positive,{" "}
-                  {game.steam_negative_reviews} negative) */}
               </div>
             </section>
           </section>

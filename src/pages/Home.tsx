@@ -104,7 +104,7 @@ const Home: React.FC = () => {
 
       {!isLoading && data && data.results.length > 0 && (
         <>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5 px-5">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5">
             {data.results.map((item: Game) => (
               <div
                 key={item.id}
@@ -133,7 +133,7 @@ const Home: React.FC = () => {
                   {/* Card Content (ALWAYS visible) */}
                   <div className="relative rounded-lg overflow-hidden bg-gray-900">
                     <img
-                      className="w-full h-64 object-cover rounded-lg
+                      className="object-cover rounded-lg
                        transition-all duration-300 ease-out
                        group-hover:brightness-110"
                       src={item.cover?.url}
