@@ -16,6 +16,7 @@ interface Genre {
 }
 
 interface Platform {
+  id: number;
   name?: string;
 }
 
