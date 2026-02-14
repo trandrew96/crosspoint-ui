@@ -85,7 +85,7 @@ function GameRow({ title, games }: GameRowProps) {
     if (!isDragging || !scrollContainerRef.current) return;
     e.preventDefault();
     const x = e.pageX - scrollContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Multiply by 2 for faster scrolling
+    const walk = (x - startX) * 2;
     scrollContainerRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -103,61 +103,65 @@ function GameRow({ title, games }: GameRowProps) {
         <button
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
-          className="flex-shrink-0 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors"
+          className="flex-shrink-0 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors z-10"
           aria-label="Scroll left"
         >
           <IoChevronBack size={24} />
         </button>
 
-        {/* Scrollable container */}
-        <div
-          ref={scrollContainerRef}
-          onScroll={checkScrollButtons}
-          onMouseDown={handleMouseDown}
-          onMouseLeave={handleMouseLeave}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
-          className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth select-none flex-1"
-          style={{
-            scrollbarWidth: "none", // Firefox
-            msOverflowStyle: "none", // IE/Edge
-            cursor: "grab",
-          }}
-        >
-          {games.map((game) => (
-            <Link
-              key={game.id}
-              to={`/games/${game.id}`}
-              className="flex-shrink-0 group"
-              draggable={false}
-            >
-              <div className="w-40 transition-transform duration-200 group-hover:scale-105">
-                {game.cover?.url ? (
-                  <img
-                    src={game.cover.url.replace("t_thumb", "t_cover_big")}
-                    alt={game.name}
-                    className="w-full h-56 object-cover rounded-lg shadow-lg pointer-events-none"
-                    draggable={false}
-                  />
-                ) : (
-                  <div className="w-full h-56 bg-slate-700 rounded-lg flex items-center justify-center">
-                    <span className="text-slate-500 text-sm">No Image</span>
-                  </div>
-                )}
+        {/* Outer wrapper - overflow-x-hidden but NOT overflow-y */}
+        <div className="flex-1 overflow-x-hidden py-4">
+          {/* Scrollable container with negative margin to allow vertical expansion */}
+          <div
+            ref={scrollContainerRef}
+            onScroll={checkScrollButtons}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide select-none -my-4 py-4 px-2"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              cursor: "grab",
+              scrollBehavior: "smooth",
+            }}
+          >
+            {games.map((game) => (
+              <Link
+                key={game.id}
+                to={`/games/${game.id}`}
+                className="flex-shrink-0 group"
+                draggable={false}
+              >
+                <div className="w-40 transition-transform duration-300 ease-out group-hover:scale-105">
+                  {game.cover?.url ? (
+                    <img
+                      src={game.cover.url.replace("t_thumb", "t_cover_big")}
+                      alt={game.name}
+                      className="w-full h-56 object-cover rounded-lg shadow-lg pointer-events-none"
+                      draggable={false}
+                    />
+                  ) : (
+                    <div className="w-full h-56 bg-slate-700 rounded-lg flex items-center justify-center">
+                      <span className="text-slate-500 text-sm">No Image</span>
+                    </div>
+                  )}
 
-                <h3 className="mt-2 text-sm font-medium line-clamp-2 group-hover:text-blue-400 transition-colors">
-                  {game.name}
-                </h3>
-              </div>
-            </Link>
-          ))}
+                  <h3 className="mt-2 text-sm font-medium line-clamp-2 group-hover:text-blue-400 transition-colors">
+                    {game.name}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
 
         {/* Right button */}
         <button
           onClick={() => scroll("right")}
           disabled={!canScrollRight}
-          className="flex-shrink-0 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors"
+          className="flex-shrink-0 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors z-10"
           aria-label="Scroll right"
         >
           <IoChevronForward size={24} />
