@@ -97,21 +97,23 @@ function GameRow({ title, games }: GameRowProps) {
     <section className="mb-10">
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
 
-      {/* Container with buttons on sides */}
-      <div className="flex items-center gap-4">
-        {/* Left button */}
+      {/* Container with padding for chevrons - shifted left to align */}
+      <div className="relative px-12 -ml-12">
+        {/* Left button - positioned outside content area */}
         <button
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
-          className="flex-shrink-0 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors z-10"
+          className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors shadow-lg"
           aria-label="Scroll left"
         >
           <IoChevronBack size={24} />
         </button>
 
-        {/* Outer wrapper - overflow-x-hidden but NOT overflow-y */}
-        <div className="flex-1 overflow-x-hidden py-4">
-          {/* Scrollable container with negative margin to allow vertical expansion */}
+        {/* Rest of the code stays the same... */}
+
+        {/* Outer wrapper - full width */}
+        <div className="overflow-x-hidden py-4">
+          {/* Scrollable container */}
           <div
             ref={scrollContainerRef}
             onScroll={checkScrollButtons}
@@ -157,11 +159,11 @@ function GameRow({ title, games }: GameRowProps) {
           </div>
         </div>
 
-        {/* Right button */}
+        {/* Right button - positioned outside content area */}
         <button
           onClick={() => scroll("right")}
           disabled={!canScrollRight}
-          className="flex-shrink-0 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors z-10"
+          className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors shadow-lg"
           aria-label="Scroll right"
         >
           <IoChevronForward size={24} />
