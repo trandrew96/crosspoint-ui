@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
+import Account from "./pages/Account";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
 import GameById from "./pages/GameItemFast";
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: "/signup", element: <SignUp /> },
       { path: "/signin", element: <SignIn /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/account", element: <Account /> },
       { path: "/games/:id", element: <GameById /> },
       { path: "/about", element: <About /> },
       { path: "*", element: <NotFoundPage /> },

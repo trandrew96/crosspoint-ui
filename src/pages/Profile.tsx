@@ -1,18 +1,7 @@
 import { useAuth } from "../context/AuthContext";
-import { auth } from "../config/firebase";
-import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { gameAPI } from "../utils/apiClient";
 import { GameCard } from "../components/GameCard";
-
-const handleSignOut = async () => {
-  try {
-    await signOut(auth);
-    alert("User signed out successfully");
-  } catch (error) {
-    console.error("Error signing out:", error);
-  }
-};
 
 type Props = {};
 
@@ -68,7 +57,8 @@ function Profile({}: Props) {
         <h1 className="text-2xl font-bold">
           Welcome, {user?.displayName || user.email}
         </h1>
-        <h2>Likes</h2>
+        <span className="text-sm text-gray-500">User ID: {user.uid}</span>
+        <h2 className="text-4xl font-semibold mt-4">My Likes</h2>
         {likedGames.length > 0 ? (
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5">
             {likedGames.map((game: LikedGame, index: number) => (
@@ -87,16 +77,6 @@ function Profile({}: Props) {
         ) : (
           <p>No liked games yet</p>
         )}
-
-        <div>
-          <p>Email: {user.email}</p>
-          <p>User ID: {user.uid}</p>
-          {user?.displayName && <p>Display Name: {user.displayName}</p>}
-          {user.photoURL && <img src={user.photoURL || ""} alt="Profile" />}
-        </div>
-        <button className="bg-amber-700 px-5 rounded" onClick={handleSignOut}>
-          Sign Out
-        </button>
       </main>
     </>
   );
