@@ -14,47 +14,48 @@ interface Game {
 
 function ExploreFast() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialQuery = searchParams.get("q") || "";
-  const initialPageSize = searchParams.get("pageSize") || "50";
+  const queryFromUrl = searchParams.get("q") || "";
+  const pageSizeFromUrl = searchParams.get("pageSize") || "50";
 
-  const [inputValue, setInputValue] = useState(initialQuery);
-  const [query, setQuery] = useState(initialQuery);
-  const [pageSize, setPageSize] = useState(parseInt(initialPageSize));
+  const [inputValue, setInputValue] = useState(queryFromUrl);
+  const [pageSize, setPageSize] = useState(parseInt(pageSizeFromUrl));
+
+  // Sync state with URL params when they change
+  useEffect(() => {
+    setInputValue(queryFromUrl);
+    setPageSize(parseInt(pageSizeFromUrl));
+  }, [queryFromUrl, pageSizeFromUrl]);
 
   // React Query - cache search results
   const { data, isLoading, error } = useQuery({
-    queryKey: ["gameSearch", query, pageSize],
-    queryFn: () => gameAPI.searchGames(query, pageSize),
-    enabled: query.length > 0, // Only fetch if there's a search query
+    queryKey: ["gameSearch", queryFromUrl, pageSize],
+    queryFn: () => gameAPI.searchGames(queryFromUrl, pageSize),
+    enabled: queryFromUrl.length > 0, // Only fetch if there's a search query
     staleTime: 10 * 60 * 1000, // 10 minutes
   });
-
-  // Update URL when query or pageSize changes
-  useEffect(() => {
-    if (query) {
-      setSearchParams({ q: query, pageSize: pageSize.toString() });
-    }
-  }, [query, pageSize, setSearchParams]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
-    setQuery(inputValue);
+    // Update URL when user submits the form
+    setSearchParams({ q: inputValue, pageSize: "50" });
     setPageSize(50); // Reset page size on new search
   };
 
   const handleLoadMore = () => {
-    setPageSize(pageSize + 50);
+    const newPageSize = pageSize + 50;
+    setPageSize(newPageSize);
+    setSearchParams({ q: queryFromUrl, pageSize: newPageSize.toString() });
   };
 
-  const hasSearched = query.length > 0;
+  const hasSearched = queryFromUrl.length > 0;
 
   return (
     <div>
       <>
         {/* Search Bar */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="md:hidden">
           <div className="relative text-gray-600 relative mx-auto w-80 rounded-full bg-white flex pr-4">
             <input
               type="search"
