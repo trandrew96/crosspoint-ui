@@ -11,6 +11,9 @@ import {
   FaLinux,
 } from "react-icons/fa";
 import {
+  SiPlaystation2,
+  SiPlaystation3,
+  SiNintendo,
   SiNintendoswitch,
   SiNintendo3Ds,
   SiNintendogamecube,
@@ -18,6 +21,8 @@ import {
   SiSega,
   SiAtari,
   SiMacos,
+  SiStadia,
+  SiApplearcade,
 } from "react-icons/si";
 import { TbDeviceNintendo, TbDeviceGamepad2 } from "react-icons/tb";
 
@@ -29,8 +34,8 @@ const ICON_COMPONENTS: Record<PlatformIconName, IconType> = {
 
   // PlayStation (all gens use same icon, but could differentiate if needed)
   playstation: FaPlaystation,
-  playstation2: FaPlaystation,
-  playstation3: FaPlaystation,
+  playstation2: SiPlaystation2,
+  playstation3: SiPlaystation3,
   playstation4: FaPlaystation,
   playstation5: FaPlaystation,
   psp: FaPlaystation,
@@ -44,7 +49,7 @@ const ICON_COMPONENTS: Record<PlatformIconName, IconType> = {
 
   // Nintendo Consoles
   nintendo: TbDeviceNintendo,
-  nes: TbDeviceNintendo,
+  nes: SiNintendo,
   snes: TbDeviceNintendo,
   n64: TbDeviceNintendo,
   gamecube: SiNintendogamecube,
@@ -78,9 +83,10 @@ const ICON_COMPONENTS: Record<PlatformIconName, IconType> = {
   ios: FaApple,
 
   // Other
-  stadia: FaGamepad,
+  stadia: SiStadia,
   meta: FaGamepad,
   ouya: FaGamepad,
+  arcade: SiApplearcade,
 
   // Default fallback
   gamepad: FaGamepad,

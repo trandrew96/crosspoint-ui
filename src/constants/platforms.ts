@@ -55,7 +55,8 @@ export type PlatformIconName =
   | "stadia"
   | "meta"
   | "ouya"
-  | "gamepad";
+  | "gamepad"
+  | "arcade";
 
 export const PLATFORM_ICONS: Record<number, PlatformIconName> = {
   // PC/Mac
@@ -120,7 +121,8 @@ export const PLATFORM_ICONS: Record<number, PlatformIconName> = {
   39: "ios", // iOS
 
   // Other
-  163: "stadia", // Google Stadia
+  52: "arcade",
+  170: "stadia", // Google Stadia
   471: "meta", // Meta Quest 2
   162: "ouya", // Ouya
 };
