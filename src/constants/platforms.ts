@@ -7,7 +7,7 @@ export type PlatformIconName =
   // PC
   | "windows"
   | "linux"
-  | "apple"
+  | "mac"
   // PlayStation
   | "playstation"
   | "playstation2"
@@ -61,7 +61,7 @@ export const PLATFORM_ICONS: Record<number, PlatformIconName> = {
   // PC/Mac
   3: "linux",
   6: "windows",
-  14: "apple",
+  14: "mac",
   13: "windows", // DOS
 
   // PlayStation

@@ -17,6 +17,7 @@ import {
   SiWii,
   SiSega,
   SiAtari,
+  SiMacos,
 } from "react-icons/si";
 import { TbDeviceNintendo, TbDeviceGamepad2 } from "react-icons/tb";
 
@@ -24,7 +25,7 @@ const ICON_COMPONENTS: Record<PlatformIconName, IconType> = {
   // PC
   windows: FaWindows,
   linux: FaLinux,
-  apple: FaApple,
+  mac: SiMacos,
 
   // PlayStation (all gens use same icon, but could differentiate if needed)
   playstation: FaPlaystation,
