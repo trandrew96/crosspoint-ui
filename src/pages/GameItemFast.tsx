@@ -236,7 +236,7 @@ function GameById() {
 
             {/* Row 2 on mobile: Ratings */}
             <section className="flex items-center justify-center lg:justify-end gap-10 lg:mx-auto">
-              {game.steam_review_score !== undefined && (
+              {game.steam_review_score && (
                 <div className="text-center">
                   <div className="rounded-full bg-slate-500 w-18 h-18 flex items-center justify-center text-2xl font-bold text-white mb-2">
                     {game.steam_review_score?.toFixed(1)}
