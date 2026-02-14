@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 
 import Search from "./pages/Search";
-import Home from "./pages/Home";
+import Popular from "./pages/Popular";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Profile from "./pages/Profile";
@@ -19,9 +19,9 @@ export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
-      { path: "/", element: <Home /> },
+      { path: "/", element: <Explore /> },
+      { path: "/popular", element: <Popular /> },
       { path: "/search", element: <Search /> },
-      { path: "/explore", element: <Explore /> },
       { path: "/signup", element: <SignUp /> },
       { path: "/signin", element: <SignIn /> },
       { path: "/profile", element: <Profile /> },

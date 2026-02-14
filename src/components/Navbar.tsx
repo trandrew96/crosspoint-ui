@@ -97,14 +97,8 @@ const Navbar = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex md:items-center md:space-x-4">
-          <Link to="/" className="text-white hover:text-gray-300">
-            Home
-          </Link>
-          <Link to="/search" className="text-white hover:text-gray-300">
-            Search
-          </Link>
-          <Link to="/explore" className="text-white hover:text-gray-300">
-            Explore
+          <Link to="/popular" className="text-white hover:text-gray-300">
+            Popular
           </Link>
           <Link
             to="/my-reviews"
@@ -183,13 +177,6 @@ const Navbar = () => {
         <div className="md:hidden absolute top-16 left-0 w-full bg-gray-800 border-t border-gray-700 shadow-lg">
           <div className="flex flex-col p-4 space-y-3">
             <Link
-              to="/"
-              onClick={closeMobileMenu}
-              className="text-white hover:text-gray-300 py-2"
-            >
-              Home
-            </Link>
-            <Link
               to="/search"
               onClick={closeMobileMenu}
               className="text-white hover:text-gray-300 py-2"
@@ -197,11 +184,11 @@ const Navbar = () => {
               Search
             </Link>
             <Link
-              to="/explore"
+              to="/popular"
               onClick={closeMobileMenu}
               className="text-white hover:text-gray-300 py-2"
             >
-              Explore
+              Popular
             </Link>
 
             {user ? (

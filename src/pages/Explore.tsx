@@ -1,6 +1,7 @@
 // src/pages/Explore.tsx
 import { useEffect } from "react";
 import GameRow from "../components/Gamerow";
+import HeroCarousel from "../components/HeroCarousel";
 import { useExploreGames } from "../hooks/useExploreGames";
 
 function Explore() {
@@ -24,10 +25,11 @@ function Explore() {
 
   if (loading) {
     return (
-      <>
-        <h1 className="text-4xl font-bold mb-8">Explore Games</h1>
+      <div className="space-y-8">
+        {/* Hero skeleton */}
+        <div className="h-96 bg-gradient-to-r from-slate-800 to-slate-700 rounded-2xl animate-pulse" />
 
-        {/* Loading skeleton */}
+        {/* Loading skeleton for rows */}
         {[1, 2, 3, 4, 5, 6].map((i) => (
           <section key={i} className="mb-10">
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
@@ -41,14 +43,14 @@ function Explore() {
             </div>
           </section>
         ))}
-      </>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <>
-        <h1 className="text-4xl font-bold mb-8">Explore Games</h1>
+      <div className="space-y-8">
+        <h1 className="text-4xl font-bold">Explore Games</h1>
         <div className="bg-red-500/10 border border-red-500 text-red-500 rounded-lg p-6 text-center">
           <p className="text-lg font-semibold mb-2">Failed to load games</p>
           <p className="text-sm mb-4">{error}</p>
@@ -59,21 +61,25 @@ function Explore() {
             Try Again
           </button>
         </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
-      <h1 className="text-4xl font-bold mb-8">Explore Games</h1>
+    <div className="space-y-12">
+      {/* Hero Carousel */}
+      <HeroCarousel games={data.trending.slice(0, 5)} />
 
-      <GameRow title="Most Anticipated" games={data.mostAnticipated} />
-      <GameRow title="Trending Now" games={data.trending} />
-      <GameRow title="Top Rated All Time" games={data.topRated} />
-      <GameRow title="Recently Released" games={data.recent} />
-      <GameRow title="Hidden Gems" games={data.hiddenGems} />
-      <GameRow title="Upcoming Releases" games={data.upcoming} />
-    </>
+      {/* Game Rows with subtle shadows */}
+      <div className="space-y-8">
+        <GameRow title="Most Anticipated" games={data.mostAnticipated} />
+        <GameRow title="Trending Now" games={data.trending} />
+        <GameRow title="Top Rated All Time" games={data.topRated} />
+        <GameRow title="Recently Released" games={data.recent} />
+        <GameRow title="Hidden Gems" games={data.hiddenGems} />
+        <GameRow title="Upcoming Releases" games={data.upcoming} />
+      </div>
+    </div>
   );
 }
 
