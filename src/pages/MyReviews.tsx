@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { reviewAPI } from "../utils/apiClient";
+import ReviewCardSkeleton from "../components/skeletons/ReviewCardSkeleton";
 import { FiEdit } from "react-icons/fi"; // Import edit icon
 
 interface Review {
@@ -43,7 +44,17 @@ const MyReviews = () => {
   }, [user, navigate]);
 
   if (loading) {
-    return <div className="max-w-4xl mx-auto p-6">Loading your reviews...</div>;
+    return (
+      <div className="max-w-4xl mx-auto p-6">
+        <h1 className="text-3xl font-bold mb-8">My Reviews</h1>
+
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <ReviewCardSkeleton key={i} />
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (error) {
