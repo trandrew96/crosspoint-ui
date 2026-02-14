@@ -51,7 +51,7 @@ function HeroCarousel({ games }: HeroCarouselProps) {
   const currentGame = games[currentIndex];
 
   return (
-    <div className="relative h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl">
+    <div className="relative h-96 rounded-2xl overflow-hidden bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl">
       {/* Background image with overlay */}
       {currentGame.cover?.url && (
         <div
@@ -65,7 +65,7 @@ function HeroCarousel({ games }: HeroCarouselProps) {
       )}
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/50 to-transparent" />
 
       {/* Content */}
       <div className="relative h-full flex items-center px-12 md:px-16">

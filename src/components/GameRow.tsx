@@ -132,7 +132,7 @@ function GameRow({ title, games }: GameRowProps) {
               <Link
                 key={game.id}
                 to={`/games/${game.id}`}
-                className="flex-shrink-0 group"
+                className="shrink-0 group"
                 draggable={false}
               >
                 <div className="w-40 transition-transform duration-300 ease-out group-hover:scale-105">

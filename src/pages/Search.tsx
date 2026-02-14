@@ -56,7 +56,7 @@ function ExploreFast() {
       <>
         {/* Search Bar */}
         <form onSubmit={handleSubmit} className="md:hidden">
-          <div className="relative text-gray-600 relative mx-auto w-80 rounded-full bg-white flex pr-4">
+          <div className="relative text-gray-600 mx-auto w-80 rounded-full bg-white flex pr-4">
             <input
               type="search"
               name="search"

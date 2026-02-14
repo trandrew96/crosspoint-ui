@@ -64,7 +64,7 @@ const Navbar = () => {
     <nav className="bg-gray-800/50 p-4 drop-shadow-md fixed top-0 w-full backdrop-blur-md bg-bg/70 z-50">
       <div className="max-w-7xl w-full px-4 md:px-10 mx-auto flex justify-between items-center gap-4">
         {/* Logo */}
-        <div className="text-white font-bold text-xl flex-shrink-0">
+        <div className="text-white font-bold text-xl shrink-0">
           <Link to="/">
             <div className="flex gap-2 justify-center items-center">
               <IoGameController size={28} className="text-white" />

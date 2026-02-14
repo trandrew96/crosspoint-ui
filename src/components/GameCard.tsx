@@ -15,7 +15,7 @@ export function GameCard({ to, children, className = "" }: GlowCardProps) {
         className="absolute -inset-2 rounded-xl opacity-0 
          group-hover:opacity-100
          transition-opacity duration-300
-         bg-gradient-to-r 
+         bg-linear-to-r 
          from-indigo-500 via-purple-500 to-pink-500
          blur-lg"
       />
@@ -25,7 +25,7 @@ export function GameCard({ to, children, className = "" }: GlowCardProps) {
         className="absolute inset-0 rounded-xl 
          opacity-0 group-hover:opacity-100
          transition-opacity duration-300
-         bg-gradient-to-r 
+         bg-linear-to-r 
          from-indigo-500 via-purple-500 to-pink-500"
       />
 

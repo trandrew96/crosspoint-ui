@@ -27,7 +27,7 @@ function Home() {
     return (
       <div>
         {/* Hero skeleton */}
-        <div className="h-96 bg-gradient-to-r from-slate-800 to-slate-700 rounded-2xl animate-pulse" />
+        <div className="h-96 bg-linear-to-r from-slate-800 to-slate-700 rounded-2xl animate-pulse" />
         <div className="h-20" /> {/* Match hero gap */}
         {/* Loading skeleton for rows with asymmetric spacing */}
         <div>
@@ -36,7 +36,7 @@ function Home() {
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
             <div className="flex gap-4 overflow-x-auto pb-4 px-2">
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="flex-shrink-0 w-40">
+                <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
                   <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
@@ -50,7 +50,7 @@ function Home() {
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
             <div className="flex gap-4 overflow-x-auto pb-4 px-2">
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="flex-shrink-0 w-40">
+                <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
                   <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
@@ -64,7 +64,7 @@ function Home() {
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
             <div className="flex gap-4 overflow-x-auto pb-4 px-2">
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="flex-shrink-0 w-40">
+                <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
                   <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
@@ -78,7 +78,7 @@ function Home() {
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
             <div className="flex gap-4 overflow-x-auto pb-4 px-2">
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="flex-shrink-0 w-40">
+                <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
                   <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
@@ -92,7 +92,7 @@ function Home() {
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
             <div className="flex gap-4 overflow-x-auto pb-4 px-2">
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="flex-shrink-0 w-40">
+                <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
                   <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
@@ -106,7 +106,7 @@ function Home() {
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
             <div className="flex gap-4 overflow-x-auto pb-4 px-2">
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="flex-shrink-0 w-40">
+                <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
                   <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>

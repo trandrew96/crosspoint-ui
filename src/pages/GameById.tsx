@@ -483,7 +483,7 @@ function GameById() {
 
           {/* Videos */}
           <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
-            <h2 className="col-span-6 col-span-6 text-2xl font-semibold tracking-tight mb-2">
+            <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
               Youtube Videos
             </h2>
             {game?.videos?.map((video: any, index: number) => (

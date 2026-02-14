@@ -87,7 +87,7 @@ const Home: React.FC = () => {
                 key={index}
                 className="relative rounded-lg overflow-hidden bg-gray-800"
               >
-                <div className="w-full h-64 animate-pulse bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700" />
+                <div className="w-full h-64 animate-pulse bg-linear-to-r from-gray-700 via-gray-600 to-gray-700" />
               </div>
             ))}
           </div>

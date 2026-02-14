@@ -14,7 +14,7 @@ const GameCardSkeleton: React.FC<GameCardSkeletonProps> = ({
       {/* Card Content */}
       <div className="relative rounded-lg overflow-hidden bg-gray-900 animate-pulse">
         {/* Image skeleton (top portion) */}
-        <div className="w-full aspect-[3/4] bg-gray-800" />
+        <div className="w-full aspect-3/4 bg-gray-800" />
 
         {/* Content section */}
         <div className="p-3 space-y-2">
