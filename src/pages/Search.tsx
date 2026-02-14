@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { gameAPI } from "../utils/apiClient";
 
 interface Game {
   id: number;
@@ -9,29 +10,6 @@ interface Game {
   cover?: { url: string };
   summary: string;
 }
-
-interface SearchResponse {
-  results: Game[];
-  count: number;
-}
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
-// Extract fetch function
-const fetchSearchResults = async (
-  query: string,
-  limit: number,
-): Promise<SearchResponse> => {
-  const response = await fetch(
-    `${API_BASE_URL}/search/games/${query}?limit=${limit}`,
-  );
-
-  if (!response.ok) {
-    throw new Error(`Search failed: ${response.statusText}`);
-  }
-
-  return response.json();
-};
 
 function ExploreFast() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -45,7 +23,7 @@ function ExploreFast() {
   // React Query - cache search results
   const { data, isLoading, error } = useQuery({
     queryKey: ["gameSearch", query, pageSize],
-    queryFn: () => fetchSearchResults(query, pageSize),
+    queryFn: () => gameAPI.searchGames(query, pageSize),
     enabled: query.length > 0, // Only fetch if there's a search query
     staleTime: 10 * 60 * 1000, // 10 minutes
   });
@@ -132,8 +110,8 @@ function ExploreFast() {
           <main className="max-w-7xl mx-auto text-center">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-4 my-5">
               {data.results
-                .filter((game) => game.cover?.url)
-                .map((game) => (
+                .filter((game: Game) => game.cover?.url)
+                .map((game: Game) => (
                   <div
                     className="rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105"
                     key={game.id}

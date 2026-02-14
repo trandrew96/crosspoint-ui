@@ -74,6 +74,22 @@ async function authenticatedFetch<T = any>(
  * API methods for game-related actions
  */
 export const gameAPI = {
+  searchGames: async (query: string, limit: number = 50): Promise<any> => {
+    const response = await fetch(
+      `${API_BASE_URL}/search/games?q=${encodeURIComponent(query)}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new Error(`Search failed: ${response.statusText}`);
+    }
+    return response.json();
+  },
+
   /**
    * Get game details by ID (PUBLIC - no auth required)
    */
@@ -96,7 +112,7 @@ export const gameAPI = {
    * Like a game
    */
   likeGame: async (gameId: number): Promise<LikeGameResponse> => {
-    return authenticatedFetch<LikeGameResponse>("/games/like", {
+    return authenticatedFetch<LikeGameResponse>(`/users/me/likes/${gameId}`, {
       method: "POST",
       body: JSON.stringify({ game_id: gameId }),
     });
@@ -106,7 +122,7 @@ export const gameAPI = {
    * Unlike a game
    */
   unlikeGame: async (gameId: number): Promise<LikeGameResponse> => {
-    return authenticatedFetch<LikeGameResponse>("/games/like", {
+    return authenticatedFetch<LikeGameResponse>(`/users/me/likes/${gameId}`, {
       method: "DELETE",
       body: JSON.stringify({ game_id: gameId }),
     });
@@ -116,7 +132,7 @@ export const gameAPI = {
    * Check if a game is liked by the current user
    */
   checkGameLiked: async (gameId: number): Promise<{ liked: boolean }> => {
-    return authenticatedFetch<{ liked: boolean }>(`/games/${gameId}/liked`, {
+    return authenticatedFetch<{ liked: boolean }>(`/users/me/likes/${gameId}`, {
       method: "GET",
     });
   },
@@ -125,7 +141,7 @@ export const gameAPI = {
    * Get all liked games for the current user
    */
   getLikedGames: async (): Promise<any> => {
-    return authenticatedFetch("/user/liked-games", {
+    return authenticatedFetch("/users/me/likes", {
       method: "GET",
     });
   },
