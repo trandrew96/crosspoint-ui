@@ -10,8 +10,10 @@ import Profile from "./pages/Profile";
 import Account from "./pages/Account";
 import About from "./pages/About";
 import NotFoundPage from "./pages/NotFoundPage";
-import GameById from "./pages/GameItemFast";
+import GameById from "./pages/GameById";
 import Explore from "./pages/Explore";
+import CreateReview from "./pages/CreateReview";
+import MyReviews from "./pages/MyReviews";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +27,8 @@ export const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/account", element: <Account /> },
       { path: "/games/:id", element: <GameById /> },
+      { path: "/games/:gameId/review", element: <CreateReview /> },
+      { path: "/my-reviews", element: <MyReviews /> },
       { path: "/about", element: <About /> },
       { path: "*", element: <NotFoundPage /> },
     ],

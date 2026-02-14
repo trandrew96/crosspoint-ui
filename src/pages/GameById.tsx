@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import LikeButtonSimplified from "../components/LikeButtonSimplified";
 import { PlatformIcons } from "../components/PlatformIcons";
 import { WEBSITE_CONFIG } from "../utils/websiteConfig";
-import { gameAPI } from "../utils/apiClient";
+import { gameAPI, reviewAPI } from "../utils/apiClient";
+import { useAuth } from "../context/AuthContext";
 import { FaSteam } from "react-icons/fa";
 import { SiIgdb } from "react-icons/si";
+import { FiEdit } from "react-icons/fi";
 
 interface Cover {
   url?: string;
@@ -69,11 +71,25 @@ interface Game {
   [key: string]: any;
 }
 
+interface GameReview {
+  id: number;
+  user_id: string;
+  game_id: number;
+  rating: number;
+  review_text: string;
+  created_at: string;
+  updated_at: string;
+}
+
 function GameById() {
   const { id } = useParams();
+  const { user } = useAuth();
   const [game, setGame] = useState<Game | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [reviews, setReviews] = useState<GameReview[]>([]);
+  const [userReview, setUserReview] = useState<GameReview | null>(null);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
 
   // Fetch game data when component mounts or when id changes
   useEffect(() => {
@@ -98,6 +114,33 @@ function GameById() {
       fetchGame();
     }
   }, [id]);
+
+  // Fetch reviews
+  useEffect(() => {
+    const fetchReviews = async () => {
+      if (!id) return;
+
+      setReviewsLoading(true);
+      try {
+        const data = await reviewAPI.getGameReviews(parseInt(id));
+        setReviews(data.reviews || []);
+
+        // Check if current user has reviewed this game
+        if (user) {
+          const myReview = data.reviews?.find(
+            (review: GameReview) => review.user_id === user.uid,
+          );
+          setUserReview(myReview || null);
+        }
+      } catch (err) {
+        console.error("Error fetching reviews:", err);
+      } finally {
+        setReviewsLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [id, user]);
 
   // Update title based on game name
   useEffect(() => {
@@ -182,7 +225,7 @@ function GameById() {
         <>
           <section className="flex flex-col lg:flex-row gap-5 max-w-7xl mx-auto mt-4 bg-slate-800/75 p-5 rounded-lg drop-shadow-md">
             {/* Row 1 on mobile: Cover + Info */}
-            <div className="flex flex-col sm:flex-row gap-5">
+            <div className="flex flex-col sm:flex-row gap-5 flex-1">
               {/* Cover Image */}
               <div className="w-max mx-auto sm:mx-0">
                 <img
@@ -272,6 +315,144 @@ function GameById() {
             <p> {game?.storyline || game?.summary}</p>
           </section>
 
+          {/* Reviews Section */}
+          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 drop-shadow-md">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-semibold tracking-tight">
+                User Reviews {reviews.length > 0 && `(${reviews.length})`}
+              </h2>
+
+              {/* Action button - changes based on user state */}
+              {!user ? (
+                <Link
+                  to="/signin"
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                >
+                  Sign in to Review
+                </Link>
+              ) : userReview ? (
+                <Link
+                  to={`/games/${game.id}/review`}
+                  className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md transition-colors"
+                >
+                  <FiEdit size={16} />
+                  Edit Your Review
+                </Link>
+              ) : (
+                <Link
+                  to={`/games/${game.id}/review`}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                >
+                  Leave a Review
+                </Link>
+              )}
+            </div>
+
+            {reviewsLoading ? (
+              // Loading skeleton - grid layout
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-pulse">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="border border-gray-700 rounded-lg p-4"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="w-12 h-12 bg-gray-700 rounded-full"></div>
+                      <div className="flex-1 space-y-2">
+                        <div className="h-4 bg-gray-700 rounded w-1/2"></div>
+                        <div className="h-3 bg-gray-700 rounded w-full"></div>
+                        <div className="h-3 bg-gray-700 rounded w-5/6"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : reviews.length === 0 ? (
+              // No reviews yet
+              <div className="text-center py-12 border-t border-gray-700">
+                <p className="text-gray-400 mb-3">
+                  No reviews yet. Be the first!
+                </p>
+                {user && (
+                  <Link
+                    to={`/games/${game.id}/review`}
+                    className="inline-block px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                  >
+                    Write the First Review
+                  </Link>
+                )}
+              </div>
+            ) : (
+              // Display reviews - grid layout
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* User's own review first (if exists) */}
+                {userReview && (
+                  <div className="border-2 border-indigo-500/30 bg-indigo-500/5 rounded-lg p-4">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                          You
+                        </div>
+                        <div>
+                          <p className="font-semibold text-indigo-400 text-sm">
+                            Your Review
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {new Date(
+                              userReview.created_at,
+                            ).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-2xl font-bold text-indigo-400 mb-2">
+                      {userReview.rating}/10
+                    </div>
+                    {userReview.review_text && (
+                      <p className="text-gray-300 text-sm whitespace-pre-wrap line-clamp-4">
+                        {userReview.review_text}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Other users' reviews */}
+                {reviews
+                  .filter((review) => review.user_id !== user?.uid)
+                  .map((review) => (
+                    <div
+                      key={review.id}
+                      className="border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors"
+                    >
+                      <div className="flex items-start justify-between gap-3 mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                            {review.user_id.slice(0, 2).toUpperCase()}
+                          </div>
+                          <div>
+                            <p className="font-semibold text-sm">
+                              Anonymous User
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {new Date(review.created_at).toLocaleDateString()}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-2xl font-bold text-gray-300 mb-2">
+                        {review.rating}/10
+                      </div>
+                      {review.review_text && (
+                        <p className="text-gray-300 text-sm whitespace-pre-wrap line-clamp-4">
+                          {review.review_text}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+              </div>
+            )}
+          </section>
+
           {/* Screenshots */}
           <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
             <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
@@ -330,7 +511,7 @@ function GameById() {
                       {getWebsitesByCategory("social").map(
                         (website: Website) => {
                           const config = WEBSITE_CONFIG[website.type];
-                          if (!config) return null; // Skip if no config
+                          if (!config) return null;
                           const Icon = config.icon;
                           return (
                             <a
@@ -358,7 +539,7 @@ function GameById() {
                           {getWebsitesByCategory("store").map(
                             (website: Website) => {
                               const config = WEBSITE_CONFIG[website.type];
-                              if (!config) return null; // Skip if no config
+                              if (!config) return null;
                               const Icon = config.icon;
                               return (
                                 <a
@@ -402,10 +583,6 @@ function GameById() {
               </div>
             </div>
           </section>
-
-          {/* <div className="w-20">
-            <pre>{JSON.stringify(game, null, 2)}</pre>
-          </div> */}
         </>
       )}
     </>

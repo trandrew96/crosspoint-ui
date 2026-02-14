@@ -106,7 +106,13 @@ const Navbar = () => {
           <Link to="/explore" className="text-white hover:text-gray-300">
             Explore
           </Link>
-
+          <Link
+            to="/my-reviews"
+            onClick={() => setIsProfileDropdownOpen(false)}
+            className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
+          >
+            My Reviews
+          </Link>
           {user ? (
             // Desktop Profile Dropdown
             <div className="relative" ref={dropdownRef}>

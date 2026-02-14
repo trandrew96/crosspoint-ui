@@ -279,4 +279,74 @@ export const gameAPI = {
   },
 };
 
+// ADD REVIEW API METHODS HERE
+export const reviewAPI = {
+  /**
+   * Create a review
+   */
+  createReview: async (gameId: number, rating: number, reviewText: string) => {
+    return authenticatedFetch("/users/me/reviews", {
+      method: "POST",
+      body: JSON.stringify({
+        game_id: gameId,
+        rating,
+        review_text: reviewText,
+      }),
+    });
+  },
+
+  /**
+   * Get all my reviews
+   */
+  getMyReviews: async () => {
+    return authenticatedFetch("/users/me/reviews", {
+      method: "GET",
+    });
+  },
+
+  /**
+   * Get reviews for a specific game (PUBLIC)
+   */
+  getGameReviews: async (gameId: number) => {
+    const response = await fetch(`${API_BASE_URL}/games/${gameId}/reviews`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch game reviews");
+    }
+
+    return response.json();
+  },
+
+  /**
+   * Update a review
+   */
+  updateReview: async (
+    reviewId: number,
+    rating?: number,
+    reviewText?: string,
+  ) => {
+    return authenticatedFetch(`/users/me/reviews/${reviewId}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        rating,
+        review_text: reviewText,
+      }),
+    });
+  },
+
+  /**
+   * Delete a review
+   */
+  deleteReview: async (reviewId: number) => {
+    return authenticatedFetch(`/users/me/reviews/${reviewId}`, {
+      method: "DELETE",
+    });
+  },
+};
+
 export default authenticatedFetch;
