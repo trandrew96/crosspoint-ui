@@ -202,27 +202,37 @@ function GameById() {
                   {game.name}
                 </h1>
                 <div className="flex flex-col gap-2 mt-2 text-sm sm:text-base">
+                  {game?.involved_companies &&
+                  game.involved_companies.length > 0 ? (
+                    <span>
+                      {game.involved_companies
+                        .filter((company) => company.developer)
+                        .map((company) => company.company?.name)
+                        .join(", ")}
+                    </span>
+                  ) : (
+                    <span>Unknown Developer</span>
+                  )}
                   <span>
-                    {game?.involved_companies &&
-                    game.involved_companies.length > 0 ? (
-                      <span>
-                        {game.involved_companies
-                          .filter((company) => company.developer)
-                          .map((company) => company.company?.name)
-                          .join(", ")}
-                      </span>
-                    ) : (
-                      <span>Unknown Developer</span>
-                    )}{" "}
-                    • Initial Release:{" "}
+                    Initial Release:{" "}
                     {formatReleaseDate(game?.first_release_date)}
                   </span>
-
-                  <PlatformIcons
+                  <span>
+                    {game?.platforms && game.platforms.length > 0 ? (
+                      <>
+                        {game.platforms
+                          .map((platform) => platform.name)
+                          .join(", ")}
+                      </>
+                    ) : (
+                      <>N/A</>
+                    )}
+                  </span>
+                  {/* <PlatformIcons
                     platforms={game?.platforms || []}
                     size={32}
                     className="flex-wrap"
-                  />
+                  /> */}
                   <LikeButtonSimplified gameId={game?.id || 0} />
                 </div>
               </div>
