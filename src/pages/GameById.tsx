@@ -484,14 +484,14 @@ function GameById() {
 
           {/* Socials & Stores Section */}
           <section className="p-5 bg-slate-800/75 rounded-lg mt-5">
-            <div className="grid grid-cols-3 gap-6">
+            <div className="flex flex-col md:grid grid-cols-3 gap-6">
               {getWebsitesByCategory("social").length > 0 &&
                 getWebsitesByCategory("store").length > 0 && (
                   <section>
                     <h2 className="text-xl font-semibold tracking-tight mb-2">
                       Socials
                     </h2>
-                    <div className="flex gap-4 flex-wrap mb-5">
+                    <div className="flex gap-8 flex-wrap mb-5">
                       {getWebsitesByCategory("social").map(
                         (website: Website) => {
                           const config = WEBSITE_CONFIG[website.type];
@@ -503,11 +503,11 @@ function GameById() {
                               href={website.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
+                              className="flex items-center"
                               title={config.label}
                             >
                               <Icon size={24} />
-                              <span>{config.label}</span>
+                              {/* <span>{config.label}</span> */}
                             </a>
                           );
                         },
@@ -519,7 +519,7 @@ function GameById() {
                         <h2 className="text-xl font-semibold tracking-tight mb-2">
                           Stores
                         </h2>
-                        <div className="flex gap-4 flex-wrap">
+                        <div className="flex gap-8 flex-wrap">
                           {getWebsitesByCategory("store").map(
                             (website: Website) => {
                               const config = WEBSITE_CONFIG[website.type];
@@ -531,11 +531,11 @@ function GameById() {
                                   href={website.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
+                                  className="flex items-center"
                                   title={config.label}
                                 >
                                   <Icon size={24} />
-                                  <span>{config.label}</span>
+                                  {/* <span>{config.label}</span> */}
                                 </a>
                               );
                             },
