@@ -79,7 +79,7 @@ function ScreenshotGallery({ screenshots }: ScreenshotGalleryProps) {
               "t_screenshot_big",
             )}
             alt={`Screenshot ${selectedIndex + 1}`}
-            className="w-full h-auto max-h-[600px] object-contain rounded-lg border-slate-700 hover:border-slate-500 transition-colors"
+            className="w-full h-auto max-h-[600px] object-cover rounded-lg border-slate-700 hover:border-slate-500 transition-colors"
           />
 
           {/* Navigation arrows */}
