@@ -310,27 +310,33 @@ function GameById() {
           <ScreenshotGallery screenshots={game?.screenshots || []} />
 
           {/* Videos */}
-          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
-            <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
+          <section className="bg-slate-800/75 rounded-lg mt-5 p-5 drop-shadow-md">
+            <h2 className="text-2xl font-semibold tracking-tight mb-2">
               Youtube Videos
             </h2>
-            {game?.videos?.map((video: any, index: number) => (
-              <a
-                href={`https://www.youtube.com/watch?v=${video.video_id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={index}
-              >
-                <div>
-                  <img
-                    className="h-32 object-cover mx-auto rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
-                    src={`https://img.youtube.com/vi/${video.video_id}/0.jpg`}
-                    alt={video.name || `Video ${index + 1}`}
-                  />
-                  <p className="text-center mt-2">{video.name}</p>
-                </div>
-              </a>
-            ))}
+
+            <div className="flex overflow-x-auto scrollbar-hide gap-4 md:grid md:grid-cols-6 md:gap-4 md:overflow-visible">
+              {game?.videos?.map((video: any, index: number) => (
+                <a
+                  key={index}
+                  href={`https://www.youtube.com/watch?v=${video.video_id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 w-64 md:w-auto"
+                >
+                  <div className="w-full">
+                    <img
+                      className="w-full object-cover rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
+                      src={`https://img.youtube.com/vi/${video.video_id}/0.jpg`}
+                      alt={video.name || `Video ${index + 1}`}
+                    />
+                    <p className="mt-2 text-center text-sm truncate">
+                      {video.name}
+                    </p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </section>
 
           {/* Reviews Section */}
