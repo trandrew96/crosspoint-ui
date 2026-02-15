@@ -316,6 +316,52 @@ function GameById() {
             <p> {game?.storyline || game?.summary}</p>
           </section>
 
+          {/* Screenshots */}
+          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
+            <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
+              Screenshots
+            </h2>
+            {game?.screenshots?.map((screenshot: Screenshot, index: number) => (
+              <a
+                href={screenshot.url?.replace("t_thumb", "t_1080p")}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={index}
+              >
+                <img
+                  key={index}
+                  className="h-32 object-cover mx-auto rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
+                  src={screenshot.url?.replace("t_thumb", "t_cover_big")}
+                  alt={`Screenshot ${index + 1}`}
+                />
+              </a>
+            ))}
+          </section>
+
+          {/* Videos */}
+          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
+            <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
+              Youtube Videos
+            </h2>
+            {game?.videos?.map((video: any, index: number) => (
+              <a
+                href={`https://www.youtube.com/watch?v=${video.video_id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={index}
+              >
+                <div>
+                  <img
+                    className="h-32 object-cover mx-auto rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
+                    src={`https://img.youtube.com/vi/${video.video_id}/0.jpg`}
+                    alt={video.name || `Video ${index + 1}`}
+                  />
+                  <p className="text-center mt-2">{video.name}</p>
+                </div>
+              </a>
+            ))}
+          </section>
+
           {/* Reviews Section */}
           {game?.first_release_date &&
             game?.first_release_date <= Math.floor(Date.now() / 1000) && (
@@ -459,52 +505,7 @@ function GameById() {
               </section>
             )}
 
-          {/* Screenshots */}
-          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
-            <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
-              Screenshots
-            </h2>
-            {game?.screenshots?.map((screenshot: Screenshot, index: number) => (
-              <a
-                href={screenshot.url?.replace("t_thumb", "t_1080p")}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={index}
-              >
-                <img
-                  key={index}
-                  className="h-32 object-cover mx-auto rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
-                  src={screenshot.url?.replace("t_thumb", "t_cover_big")}
-                  alt={`Screenshot ${index + 1}`}
-                />
-              </a>
-            ))}
-          </section>
-
-          {/* Videos */}
-          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
-            <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
-              Youtube Videos
-            </h2>
-            {game?.videos?.map((video: any, index: number) => (
-              <a
-                href={`https://www.youtube.com/watch?v=${video.video_id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={index}
-              >
-                <div>
-                  <img
-                    className="h-32 object-cover mx-auto rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
-                    src={`https://img.youtube.com/vi/${video.video_id}/0.jpg`}
-                    alt={video.name || `Video ${index + 1}`}
-                  />
-                  <p className="text-center mt-2">{video.name}</p>
-                </div>
-              </a>
-            ))}
-          </section>
-
+          {/* Socials & Stores Section */}
           <section className="p-5 bg-slate-800/75 rounded-lg mt-5">
             <div className="grid grid-cols-3 gap-6">
               {getWebsitesByCategory("social").length > 0 &&
