@@ -155,11 +155,11 @@ const CreateReview = () => {
   }
 
   if (!game) {
-    return <div className="max-w-2xl mx-auto p-6">Loading...</div>;
+    return <div className="max-w-2xl mx-auto py-6">Loading...</div>;
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="max-w-2xl mx-auto py-6">
       <h1 className="text-3xl font-bold mb-8">
         {isEditing ? "Edit Your Review" : "Write a Review"}
       </h1>
