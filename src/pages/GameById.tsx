@@ -183,7 +183,7 @@ function GameById() {
       {!loading && !error && game && (
         <>
           {/* Hero section */}
-          <section className="flex flex-col lg:flex-row gap-5 max-w-7xl mx-auto mt-4 bg-slate-800/75 p-5 rounded-lg drop-shadow-md lg:justify-between">
+          <section className="p-5 flex flex-col lg:flex-row gap-5 max-w-7xl mx-auto mt-4 md:bg-slate-800/75 rounded-sm drop-shadow-md lg:justify-between">
             {/* Row 1 on mobile: Cover + Info */}
             <div className="flex flex-row gap-3 sm:gap-5">
               {/* Cover Image - on right on mobile, left on desktop */}
@@ -299,7 +299,7 @@ function GameById() {
           </section>
 
           {/* Storyline */}
-          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 drop-shadow-md">
+          <section className="p-5 md:bg-slate-800/75 rounded-sm mt-5 drop-shadow-md">
             <h2 className="text-2xl font-semibold tracking-tight mb-2">
               Storyline
             </h2>
@@ -307,10 +307,13 @@ function GameById() {
           </section>
 
           {/* Screenshots */}
-          <ScreenshotGallery screenshots={game?.screenshots || []} />
+          <ScreenshotGallery
+            screenshots={game?.screenshots || []}
+            extraClassNames="md:bg-slate-800/75 rounded-sm"
+          />
 
           {/* Videos */}
-          <section className="bg-slate-800/75 rounded-lg mt-5 p-5 drop-shadow-md">
+          <section className="md:bg-slate-800/75 rounded-sm mt-5 p-5 drop-shadow-md">
             <h2 className="text-2xl font-semibold tracking-tight mb-2">
               Youtube Videos
             </h2>
@@ -342,7 +345,7 @@ function GameById() {
           {/* Reviews Section */}
           {game?.first_release_date &&
             game?.first_release_date <= Math.floor(Date.now() / 1000) && (
-              <section className="p-5 bg-slate-800/75 rounded-lg mt-5 drop-shadow-md">
+              <section className="p-5 md:bg-slate-800/75 rounded-sm mt-5 drop-shadow-md">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-2xl font-semibold tracking-tight">
                     User Reviews {reviews.length > 0 && `(${reviews.length})`}
@@ -483,15 +486,35 @@ function GameById() {
             )}
 
           {/* Socials & Stores Section */}
-          <section className="p-5 bg-slate-800/75 rounded-lg mt-5">
+          <section className="p-5 md:bg-slate-800/75 rounded-sm mt-5">
             <div className="flex flex-col md:grid grid-cols-3 gap-6">
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight mb-2">
+                  Platforms
+                </h2>
+                <ul>
+                  {game?.platforms?.map((platform) => (
+                    <li key={platform?.name}>{platform?.name}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight mb-2">
+                  Genres
+                </h2>
+                <ul>
+                  {game?.genres?.map((platform) => (
+                    <li key={platform?.name}>{platform?.name}</li>
+                  ))}
+                </ul>
+              </div>
               {getWebsitesByCategory("social").length > 0 &&
                 getWebsitesByCategory("store").length > 0 && (
                   <section>
                     <h2 className="text-xl font-semibold tracking-tight mb-2">
                       Socials
                     </h2>
-                    <div className="flex gap-8 flex-wrap mb-5">
+                    <div className="grid grid-cols-4 gap-8 flex-wrap max-w-50 mb-5">
                       {getWebsitesByCategory("social").map(
                         (website: Website) => {
                           const config = WEBSITE_CONFIG[website.type];
@@ -545,26 +568,6 @@ function GameById() {
                     )}
                   </section>
                 )}
-              <div>
-                <h2 className="text-xl font-semibold tracking-tight mb-2">
-                  Platforms
-                </h2>
-                <ul>
-                  {game?.platforms?.map((platform) => (
-                    <li key={platform?.name}>{platform?.name}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h2 className="text-xl font-semibold tracking-tight mb-2">
-                  Genres
-                </h2>
-                <ul>
-                  {game?.genres?.map((platform) => (
-                    <li key={platform?.name}>{platform?.name}</li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </section>
         </>

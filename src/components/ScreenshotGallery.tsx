@@ -8,9 +8,13 @@ interface Screenshot {
 
 interface ScreenshotGalleryProps {
   screenshots: Screenshot[];
+  extraClassNames: string;
 }
 
-function ScreenshotGallery({ screenshots }: ScreenshotGalleryProps) {
+function ScreenshotGallery({
+  screenshots,
+  extraClassNames,
+}: ScreenshotGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const thumbnailContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -65,7 +69,9 @@ function ScreenshotGallery({ screenshots }: ScreenshotGalleryProps) {
   };
 
   return (
-    <section className="bg-slate-800/75 rounded-lg mt-5 p-5 drop-shadow-md">
+    <section
+      className={"rounded-lg mt-5 p-5 drop-shadow-md " + extraClassNames}
+    >
       <h2 className="text-2xl font-semibold tracking-tight mb-4">
         Screenshots
       </h2>
