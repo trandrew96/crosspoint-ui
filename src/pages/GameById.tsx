@@ -298,16 +298,36 @@ function GameById() {
             ) : game?.videos && game.videos.length > 0 ? (
               <section className="flex items-center justify-center lg:justify-end lg:mx-auto lg:min-w-[400px]">
                 <div className="w-full">
-                  <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg">
-                    <iframe
-                      className="absolute top-0 left-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${game.videos[0].video_id}`}
-                      title={game.videos[0].name || "Game Trailer"}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${game.videos[0].video_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block relative group"
+                  >
+                    <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg">
+                      <img
+                        src={`https://img.youtube.com/vi/${game.videos[0].video_id}/maxresdefault.jpg`}
+                        alt={game.videos[0].name || "Game Trailer"}
+                        className="absolute top-0 left-0 w-full h-full object-cover"
+                        onError={(e) => {
+                          // Fallback to hqdefault if maxresdefault doesn't exist
+                          e.currentTarget.src = `https://img.youtube.com/vi/${game.videos[0].video_id}/hqdefault.jpg`;
+                        }}
+                      />
+                      {/* Play button overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors">
+                        <div className="w-24 h-16 bg-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <svg
+                            className="w-8 h-8 text-white ml-1"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
                   <p className="text-center text-sm text-gray-400 mt-2">
                     {game.videos[0].name || "Trailer"}
                   </p>
