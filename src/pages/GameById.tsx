@@ -171,6 +171,9 @@ function GameById() {
     );
   };
 
+  // Check if game has ratings
+  const hasRatings = game?.steam_review_score || game?.rating;
+
   return (
     <>
       {loading && (
@@ -224,25 +227,25 @@ function GameById() {
       {!loading && !error && game && (
         <>
           {/* Hero section */}
-          <section className="flex flex-col lg:flex-row gap-5 max-w-7xl mx-auto mt-4 bg-slate-800/75 p-5 rounded-lg drop-shadow-md">
+          <section className="flex flex-col lg:flex-row gap-5 max-w-7xl mx-auto mt-4 bg-slate-800/75 p-5 rounded-lg drop-shadow-md lg:justify-between">
             {/* Row 1 on mobile: Cover + Info */}
-            <div className="flex flex-col sm:flex-row gap-5 flex-1">
-              {/* Cover Image */}
-              <div className="w-max mx-auto sm:mx-0">
+            <div className="flex flex-row gap-3 sm:gap-5">
+              {/* Cover Image - on right on mobile, left on desktop */}
+              <div className="shrink-0 order-2 sm:order-1">
                 <img
-                  className="h-64 object-cover rounded-lg"
+                  className="h-32 w-24 sm:h-64 sm:w-full object-cover rounded-lg"
                   src={game?.cover?.url}
                   alt={game?.name}
                   width={200}
                 />
               </div>
 
-              {/* Game Info */}
-              <div className="flex-1 mx-auto">
-                <h1 className="text-4xl font-semibold tracking-tight mb-2">
+              {/* Game Info - on left on mobile, right on desktop */}
+              <div className="flex-1 sm:flex-none sm:max-w-md order-1 sm:order-2">
+                <h1 className="text-2xl sm:text-4xl font-semibold tracking-tight mb-2">
                   {game.name}
                 </h1>
-                <div className="flex flex-col gap-2 mt-2">
+                <div className="flex flex-col gap-2 mt-2 text-sm sm:text-base">
                   <span>
                     {game?.involved_companies &&
                     game.involved_companies.length > 0 ? (
@@ -258,15 +261,6 @@ function GameById() {
                     • Initial Release:{" "}
                     {formatReleaseDate(game?.first_release_date)}
                   </span>
-                  <span>
-                    Rating: {game?.rating ? game.rating.toFixed(1) : "N/A"}
-                  </span>
-                  <span>
-                    Aggregated Rating:{" "}
-                    {game?.aggregated_rating
-                      ? game.aggregated_rating.toFixed(1)
-                      : "N/A"}
-                  </span>
 
                   <PlatformIcons
                     platforms={game?.platforms || []}
@@ -278,8 +272,8 @@ function GameById() {
               </div>
             </div>
 
-            {/* Row 2 on mobile: Ratings */}
-            {game.steam_review_score || game.rating ? (
+            {/* Row 2 on mobile: Ratings OR Video */}
+            {hasRatings ? (
               <section className="flex items-center justify-center lg:justify-end gap-10 lg:mx-auto">
                 {game.steam_review_score && (
                   <div className="text-center">
@@ -299,6 +293,24 @@ function GameById() {
                   <div className="flex items-center justify-center">
                     <SiIgdb size={32} className="inline-block mr-1" />
                   </div>
+                </div>
+              </section>
+            ) : game?.videos && game.videos.length > 0 ? (
+              <section className="flex items-center justify-center lg:justify-end lg:mx-auto lg:min-w-[400px]">
+                <div className="w-full">
+                  <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg">
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full"
+                      src={`https://www.youtube.com/embed/${game.videos[0].video_id}`}
+                      title={game.videos[0].name || "Game Trailer"}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  <p className="text-center text-sm text-gray-400 mt-2">
+                    {game.videos[0].name || "Trailer"}
+                  </p>
                 </div>
               </section>
             ) : (
