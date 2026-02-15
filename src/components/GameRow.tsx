@@ -138,21 +138,21 @@ function GameRow({ title, games }: GameRowProps) {
                 className="shrink-0 block group"
                 draggable={false}
               >
-                <div className="w-40">
+                <div className="w-24 md:w-40">
                   {game.cover?.url ? (
                     <img
                       src={game.cover.url.replace("t_thumb", "t_cover_big")}
                       alt={game.name}
-                      className="w-full h-56 object-cover rounded-lg shadow-lg pointer-events-none transition-shadow duration-300 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]"
+                      className="w-24 md:w-full h-34 md:h-56 object-cover rounded-lg shadow-lg pointer-events-none transition-shadow duration-300 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]"
                       draggable={false}
                     />
                   ) : (
-                    <div className="w-full h-56 bg-slate-700 rounded-lg flex items-center justify-center">
+                    <div className="w-24 md:w-full h-34 md:h-56 bg-slate-700 rounded-lg flex items-center justify-center">
                       <span className="text-slate-500 text-sm">No Image</span>
                     </div>
                   )}
 
-                  <h3 className="mt-2 text-sm font-medium line-clamp-2">
+                  <h3 className="hidden md:block mt-2 text-sm font-medium line-clamp-2">
                     {game.name}
                   </h3>
                 </div>

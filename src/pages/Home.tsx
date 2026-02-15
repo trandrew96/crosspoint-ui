@@ -42,9 +42,9 @@ function Home() {
               }}
             >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="shrink-0 w-40">
-                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
-                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                <div key={j} className="shrink-0 w-24 md:w-40">
+                  <div className="w-24 md:w-full h-34 md:h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="hidden md:block mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
               ))}
             </div>
@@ -62,9 +62,9 @@ function Home() {
               }}
             >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="shrink-0 w-40">
-                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
-                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                <div key={j} className="shrink-0 w-24 md:w-40">
+                  <div className="w-24 md:w-full h-34 md:h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="hidden md:block mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
               ))}
             </div>
@@ -82,9 +82,9 @@ function Home() {
               }}
             >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="shrink-0 w-40">
-                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
-                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                <div key={j} className="shrink-0 w-24 md:w-40">
+                  <div className="w-24 md:w-full h-34 md:h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="hidden md:block mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
               ))}
             </div>
@@ -102,9 +102,9 @@ function Home() {
               }}
             >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="shrink-0 w-40">
-                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
-                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                <div key={j} className="shrink-0 w-24 md:w-40">
+                  <div className="w-24 md:w-full h-34 md:h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="hidden md:block mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
               ))}
             </div>
@@ -122,9 +122,9 @@ function Home() {
               }}
             >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="shrink-0 w-40">
-                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
-                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                <div key={j} className="shrink-0 w-24 md:w-40">
+                  <div className="w-24 md:w-full h-34 md:h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="hidden md:block mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
               ))}
             </div>
@@ -142,9 +142,9 @@ function Home() {
               }}
             >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
-                <div key={j} className="shrink-0 w-40">
-                  <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
-                  <div className="mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
+                <div key={j} className="shrink-0 w-24 md:w-40">
+                  <div className="w-24 md:w-full h-34 md:h-56 bg-slate-700 rounded-lg animate-pulse" />
+                  <div className="hidden md:block mt-2 h-4 w-32 bg-slate-700 rounded animate-pulse" />
                 </div>
               ))}
             </div>
