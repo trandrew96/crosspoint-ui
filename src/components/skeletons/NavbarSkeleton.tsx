@@ -1,6 +1,6 @@
 const NavbarSkeleton = () => {
   return (
-    <nav className="bg-gray-800/50 p-4 drop-shadow-md fixed top-0 w-full backdrop-blur-md bg-bg/70 z-50">
+    <nav className="p-4 drop-shadow-md fixed top-0 w-full backdrop-blur-md bg-bg/70 z-50">
       <div className="max-w-7xl w-full px-4 md:px-10 mx-auto flex justify-between items-center gap-4">
         {/* Logo Skeleton */}
         <div className="flex gap-2 justify-center items-center shrink-0">
