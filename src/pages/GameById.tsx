@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import { FaSteam } from "react-icons/fa";
 import { SiIgdb } from "react-icons/si";
 import { FiEdit } from "react-icons/fi";
+import ScreenshotGallery from "../components/ScreenshotGallery";
 
 interface Cover {
   url?: string;
@@ -318,7 +319,7 @@ function GameById() {
                       />
                       {/* Play button overlay */}
                       <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors">
-                        <div className="w-24 h-16 bg-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                           <svg
                             className="w-8 h-8 text-white ml-1"
                             fill="currentColor"
@@ -351,26 +352,7 @@ function GameById() {
           </section>
 
           {/* Screenshots */}
-          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
-            <h2 className="col-span-6 text-2xl font-semibold tracking-tight mb-2">
-              Screenshots
-            </h2>
-            {game?.screenshots?.map((screenshot: Screenshot, index: number) => (
-              <a
-                href={screenshot.url?.replace("t_thumb", "t_1080p")}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={index}
-              >
-                <img
-                  key={index}
-                  className="h-32 object-cover mx-auto rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
-                  src={screenshot.url?.replace("t_thumb", "t_cover_big")}
-                  alt={`Screenshot ${index + 1}`}
-                />
-              </a>
-            ))}
-          </section>
+          <ScreenshotGallery screenshots={game?.screenshots || []} />
 
           {/* Videos */}
           <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5 drop-shadow-md">
