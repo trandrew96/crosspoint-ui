@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import LikeButtonSimplified from "../components/LikeButtonSimplified";
-import { PlatformIcons } from "../components/PlatformIcons";
 import { WEBSITE_CONFIG } from "../utils/websiteConfig";
 import { gameAPI, reviewAPI } from "../utils/apiClient";
 import { useAuth } from "../context/AuthContext";
 import { FaSteam } from "react-icons/fa";
 import { SiIgdb } from "react-icons/si";
 import { FiEdit } from "react-icons/fi";
-import ScreenshotGallery from "../components/ScreenshotGallery";
+import ScreenshotGallery from "../components/ui/ScreenshotGallery";
 import GameByIdSkeleton from "../components/skeletons/GameByIdSkeleton";
+import GameSection from "../components/game/GameSection";
+import GameVideoGallery from "../components/game/GameVideoGallery";
 
 interface Cover {
   url?: string;
@@ -309,48 +310,19 @@ function GameById() {
           </section>
 
           {/* Storyline */}
-          <section className="p-5 md:bg-slate-800/75 rounded-sm mt-5 drop-shadow-md">
-            <h2 className="text-2xl font-semibold tracking-tight mb-2">
-              Storyline
-            </h2>
-            <p> {game?.storyline || game?.summary}</p>
-          </section>
+          <GameSection title="Storyline">
+            <p>{game?.storyline || game?.summary || ""}</p>
+          </GameSection>
 
           {/* Screenshots */}
-          <ScreenshotGallery
-            screenshots={game?.screenshots || []}
-            extraClassNames="md:bg-slate-800/75 rounded-sm"
-          />
+          <GameSection title="Screenshots">
+            <ScreenshotGallery screenshots={game?.screenshots || []} />
+          </GameSection>
 
           {/* Videos */}
-          <section className="md:bg-slate-800/75 rounded-sm mt-5 p-5 drop-shadow-md">
-            <h2 className="text-2xl font-semibold tracking-tight mb-2">
-              Youtube Videos
-            </h2>
-
-            <div className="flex overflow-x-auto scrollbar-hide gap-4 md:grid md:grid-cols-6 md:gap-4 md:overflow-visible">
-              {game?.videos?.map((video: any, index: number) => (
-                <a
-                  key={index}
-                  href={`https://www.youtube.com/watch?v=${video.video_id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 w-64 md:w-auto"
-                >
-                  <div className="w-full">
-                    <img
-                      className="w-full object-cover rounded-lg border-2 border-slate-700 hover:border-slate-500 transition-colors"
-                      src={`https://img.youtube.com/vi/${video.video_id}/0.jpg`}
-                      alt={video.name || `Video ${index + 1}`}
-                    />
-                    <p className="mt-2 text-center text-sm truncate">
-                      {video.name}
-                    </p>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
+          <GameSection title="Youtube Videos">
+            <GameVideoGallery videos={game?.videos || []} />
+          </GameSection>
 
           {/* Reviews Section */}
           {game?.first_release_date &&

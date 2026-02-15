@@ -8,12 +8,12 @@ interface Screenshot {
 
 interface ScreenshotGalleryProps {
   screenshots: Screenshot[];
-  extraClassNames: string;
+  classNames?: string;
 }
 
 function ScreenshotGallery({
   screenshots,
-  extraClassNames,
+  classNames,
 }: ScreenshotGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const thumbnailContainerRef = useRef<HTMLDivElement>(null);
@@ -69,13 +69,7 @@ function ScreenshotGallery({
   };
 
   return (
-    <section
-      className={"rounded-lg mt-5 p-5 drop-shadow-md " + extraClassNames}
-    >
-      <h2 className="text-2xl font-semibold tracking-tight mb-4">
-        Screenshots
-      </h2>
-
+    <section className={classNames}>
       <div className="space-y-4">
         {/* Main large screenshot */}
         <div className="relative group">
