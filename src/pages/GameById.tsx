@@ -311,7 +311,9 @@ function GameById() {
                         className="absolute top-0 left-0 w-full h-full object-cover"
                         onError={(e) => {
                           // Fallback to hqdefault if maxresdefault doesn't exist
-                          e.currentTarget.src = `https://img.youtube.com/vi/${game.videos[0].video_id}/hqdefault.jpg`;
+                          if (game.videos?.[0]?.video_id) {
+                            e.currentTarget.src = `https://img.youtube.com/vi/${game.videos[0].video_id}/hqdefault.jpg`;
+                          }
                         }}
                       />
                       {/* Play button overlay */}
