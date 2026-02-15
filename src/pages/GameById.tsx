@@ -499,7 +499,7 @@ function GameById() {
                           const Icon = config.icon;
                           return (
                             <a
-                              key={website.id}
+                              key={website.url}
                               href={website.url}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -507,6 +507,7 @@ function GameById() {
                               title={config.label}
                             >
                               <Icon size={24} />
+                              <h2>{website.url}</h2>
                               {/* <span>{config.label}</span> */}
                             </a>
                           );
@@ -527,7 +528,7 @@ function GameById() {
                               const Icon = config.icon;
                               return (
                                 <a
-                                  key={website.id}
+                                  key={website.url}
                                   href={website.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
