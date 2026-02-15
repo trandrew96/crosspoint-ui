@@ -34,7 +34,13 @@ function Home() {
           {/* Row 1 */}
           <section className="mb-10 pb-8">
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
-            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 px-2 scrollbar-hide"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
                 <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
@@ -48,7 +54,13 @@ function Home() {
           {/* Row 2 */}
           <section className="mb-10 pb-8">
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
-            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 px-2 scrollbar-hide"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
                 <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
@@ -62,7 +74,13 @@ function Home() {
           {/* Row 3 */}
           <section className="mb-10 pb-8">
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
-            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 px-2 scrollbar-hide"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
                 <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
@@ -76,7 +94,13 @@ function Home() {
           {/* Row 4 */}
           <section className="mb-10 pb-8">
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
-            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 px-2 scrollbar-hide"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
                 <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
@@ -90,7 +114,13 @@ function Home() {
           {/* Row 5 */}
           <section className="mb-10 pb-8">
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
-            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 px-2 scrollbar-hide"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
                 <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
@@ -104,7 +134,13 @@ function Home() {
           {/* Row 6 */}
           <section className="mb-10 pb-8">
             <div className="h-8 w-48 bg-slate-700 rounded mb-4 animate-pulse" />
-            <div className="flex gap-4 overflow-x-auto pb-4 px-2">
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 px-2 scrollbar-hide"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+            >
               {[1, 2, 3, 4, 5, 6, 7].map((j) => (
                 <div key={j} className="shrink-0 w-40">
                   <div className="w-full h-56 bg-slate-700 rounded-lg animate-pulse" />
