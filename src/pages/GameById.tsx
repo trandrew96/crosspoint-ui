@@ -9,6 +9,7 @@ import { FaSteam } from "react-icons/fa";
 import { SiIgdb } from "react-icons/si";
 import { FiEdit } from "react-icons/fi";
 import ScreenshotGallery from "../components/ScreenshotGallery";
+import GameByIdSkeleton from "../components/skeletons/GameByIdSkeleton";
 
 interface Cover {
   url?: string;
@@ -177,53 +178,7 @@ function GameById() {
 
   return (
     <>
-      {loading && (
-        <div className="animate-fade-in">
-          {/* Top Section */}
-          <section className="flex gap-5 bg-slate-800/75 p-5 rounded-lg">
-            {/* Dark Cover Placeholder */}
-            <div className="h-64 w-[200px] rounded-lg" />
-
-            <div className="flex-1 space-y-4">
-              <div className="h-8 w-1/2 rounded" />
-              <div className="h-4 w-1/3 rounded" />
-              <div className="h-4 w-1/4 rounded" />
-              <div className="h-4 w-1/2 rounded" />
-              <div className="h-8 w-32 rounded mt-4" />
-            </div>
-          </section>
-
-          {/* Screenshots Section */}
-          <section className="grid grid-cols-6 bg-slate-800/75 rounded-lg mt-5 gap-4 p-5">
-            <div className="col-span-6 h-6 w-40 rounded mb-4" />
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-32 rounded" />
-            ))}
-          </section>
-
-          {/* Story Section */}
-          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 space-y-4">
-            <div className="h-6 w-48 rounded" />
-            <div className="h-4 w-full rounded" />
-            <div className="h-4 w-5/6 rounded" />
-            <div className="h-4 w-2/3 rounded" />
-          </section>
-
-          {/* Platforms / Genres */}
-          <section className="p-5 bg-slate-800/75 rounded-lg mt-5 grid grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <div className="h-5 w-32 rounded" />
-              <div className="h-4 w-24 rounded" />
-              <div className="h-4 w-20 rounded" />
-            </div>
-            <div className="space-y-3">
-              <div className="h-5 w-32 rounded" />
-              <div className="h-4 w-24 rounded" />
-              <div className="h-4 w-20 rounded" />
-            </div>
-          </section>
-        </div>
-      )}
+      {loading && <GameByIdSkeleton />}
 
       {!loading && !error && game && (
         <>
