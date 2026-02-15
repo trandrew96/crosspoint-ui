@@ -4,7 +4,7 @@ import Footer from "../Footer";
 
 export default function MainLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-bg text-primaryText">
+    <div className="font-display min-h-screen flex flex-col bg-bg text-primaryText">
       {/* Navbar */}
       <Navbar />
 
