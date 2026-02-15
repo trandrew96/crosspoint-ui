@@ -51,7 +51,7 @@ function HeroCarousel({ games }: HeroCarouselProps) {
   const currentGame = games[currentIndex];
 
   return (
-    <div className="relative h-96 rounded-2xl overflow-hidden bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl">
+    <div className="relative h-96 md:rounded-2xl overflow-hidden bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl">
       {/* Background image with overlay */}
       {currentGame.cover?.url && (
         <div

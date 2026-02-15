@@ -174,10 +174,13 @@ function Home() {
 
   return (
     <div>
-      {/* Hero Carousel */}
-      <HeroCarousel games={data.trending.slice(0, 5)} />
-      <div className="h-20" /> {/* 80px tasteful gap after hero */}
-      {/* Game rows with individual spacing */}
+      {/* Hero Carousel + Break out of parent padding */}
+      <div className="-mx-4 md:mx-0 -mt-10 md:mt-0 mb-16 ">
+        <HeroCarousel games={data.trending.slice(0, 5)} />
+      </div>
+
+      <div className="h-20" />
+
       <div>
         <GameRow title="Most Anticipated" games={data.mostAnticipated} />
         <div className="h-16" /> {/* 64px gap */}
