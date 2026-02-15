@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { auth } from "../config/firebase"; // ADD THIS IMPORT
-import { signOut } from "firebase/auth"; // ADD THIS IMPORT
+import { auth } from "../config/firebase";
+import { signOut } from "firebase/auth";
 import { IoGameController } from "react-icons/io5";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { FiSearch, FiMenu, FiX } from "react-icons/fi";
 import { HiChevronDown } from "react-icons/hi";
+import NavbarSkeleton from "./skeletons/NavbarSkeleton";
 
 const Navbar = () => {
   const { user, loading } = useAuth();
@@ -45,7 +46,6 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // ADD THIS FUNCTION
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -58,7 +58,7 @@ const Navbar = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <NavbarSkeleton />;
 
   return (
     <nav className="bg-gray-800/50 p-4 drop-shadow-md fixed top-0 w-full backdrop-blur-md bg-bg/70 z-50">
