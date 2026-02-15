@@ -94,19 +94,24 @@ function GameRow({ title, games }: GameRowProps) {
   }
 
   return (
-    <section className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-12 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]">
+    <section className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]">
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
-      {/* Container with padding for chevrons - shifted left to align */}
-      <div className="relative md:px-12 md:-ml-12">
-        {/* Left button - positioned outside content area */}
-        <button
-          onClick={() => scroll("left")}
-          disabled={!canScrollLeft}
-          className="hidden md:block md:absolute -left-2 top-1/2 -translate-y-1/2 z-10 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors shadow-lg"
-          aria-label="Scroll left"
-        >
-          <IoChevronBack size={24} />
-        </button>
+      {/* Container - symmetrical layout with group for hover */}
+      <div className="relative group">
+        {/* Left button */}
+        {canScrollLeft && (
+          <button
+            onClick={() => scroll("left")}
+            className="max-md:hidden flex absolute left-0 top-0 bottom-0 z-10 bg-slate-700/30 hover:bg-slate-600/50 text-white w-10 items-center justify-center opacity-0 group-hover:opacity-100 rounded-r-lg"
+            style={{
+              transition:
+                "background-color 0.3s ease-in-out, opacity 0.3s ease-in-out",
+            }}
+            aria-label="Scroll left"
+          >
+            <IoChevronBack size={24} />
+          </button>
+        )}
 
         {/* Outer wrapper - full width */}
         <div className="overflow-x-hidden py-4">
@@ -130,10 +135,10 @@ function GameRow({ title, games }: GameRowProps) {
               <Link
                 key={game.id}
                 to={`/games/${game.id}`}
-                className="shrink-0 group"
+                className="shrink-0"
                 draggable={false}
               >
-                <div className="w-40 transition-transform duration-300 ease-out group-hover:scale-105">
+                <div className="w-40">
                   {game.cover?.url ? (
                     <img
                       src={game.cover.url.replace("t_thumb", "t_cover_big")}
@@ -147,7 +152,7 @@ function GameRow({ title, games }: GameRowProps) {
                     </div>
                   )}
 
-                  <h3 className="mt-2 text-sm font-medium line-clamp-2 group-hover:text-blue-400 transition-colors">
+                  <h3 className="mt-2 text-sm font-medium line-clamp-2">
                     {game.name}
                   </h3>
                 </div>
@@ -156,15 +161,20 @@ function GameRow({ title, games }: GameRowProps) {
           </div>
         </div>
 
-        {/* Right button - positioned outside content area */}
-        <button
-          onClick={() => scroll("right")}
-          disabled={!canScrollRight}
-          className="hidden md:block md:absolute -right-2 top-1/2 -translate-y-1/2 z-10 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-full transition-colors shadow-lg"
-          aria-label="Scroll right"
-        >
-          <IoChevronForward size={24} />
-        </button>
+        {/* Right button */}
+        {canScrollRight && (
+          <button
+            onClick={() => scroll("right")}
+            className="max-md:hidden flex absolute right-0 top-0 bottom-0 z-10 bg-slate-700/30 hover:bg-slate-600/50 text-white w-10 items-center justify-center opacity-0 group-hover:opacity-100 rounded-l-lg"
+            style={{
+              transition:
+                "background-color 0.3s ease-in-out, opacity 0.3s ease-in-out",
+            }}
+            aria-label="Scroll right"
+          >
+            <IoChevronForward size={24} />
+          </button>
+        )}
       </div>
     </section>
   );
