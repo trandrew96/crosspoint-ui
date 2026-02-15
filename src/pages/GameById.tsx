@@ -507,7 +507,6 @@ function GameById() {
                               title={config.label}
                             >
                               <Icon size={24} />
-                              <h2>{website.url}</h2>
                               {/* <span>{config.label}</span> */}
                             </a>
                           );
