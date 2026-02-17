@@ -175,6 +175,18 @@ function GameRow({ title, games }: GameRowProps) {
             <IoChevronForward size={24} />
           </button>
         )}
+
+        {/* Disable if can't scroll right */}
+        {!canScrollRight && (
+          <button
+            onClick={() => scroll("right")}
+            className="max-md:hidden flex absolute right-0 top-0 bottom-0 z-10 bg-slate-700/30 text-white w-10 items-center justify-center opacity-0 group-hover/row:opacity-100 rounded-l-lg"
+            aria-label="Scroll right"
+            disabled
+          >
+            <IoChevronForward size={24} />
+          </button>
+        )}
       </div>
     </section>
   );
