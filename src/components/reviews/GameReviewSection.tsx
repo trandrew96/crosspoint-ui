@@ -51,12 +51,7 @@ export default function GameReviewSection({
             Edit Your Review
           </Link>
         ) : (
-          <Link
-            to={`/games/${gameId}/review`}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-          >
-            Leave a Review
-          </Link>
+          <></>
         )}
       </div>
 
@@ -154,6 +149,16 @@ export default function GameReviewSection({
             ))}
         </div>
       )}
+      <aside className="flex justify-center w-full py-5">
+        {!userReview && !(reviews.length == 0) && (
+          <Link
+            to={`/games/${gameId}/review`}
+            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Leave a Review
+          </Link>
+        )}
+      </aside>
     </section>
   );
 }
