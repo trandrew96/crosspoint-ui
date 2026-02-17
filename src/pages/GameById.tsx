@@ -262,10 +262,14 @@ function GameById() {
                     <span>Unknown Developer</span>
                   )}
                   <span>
-                    Initial Release:{" "}
-                    {formatReleaseDate(game?.first_release_date)}
+                    Release: {formatReleaseDate(game?.first_release_date)}
                   </span>
                   <span>{platformContent}</span>
+                  {game?.genres && game.genres.length > 0 && (
+                    <span>
+                      {game.genres.map((genre) => genre.name).join(", ")}
+                    </span>
+                  )}
                   <LikeButtonSimplified gameId={game?.id || 0} />
                 </div>
               </div>
