@@ -8,6 +8,10 @@ type Props = {
 };
 
 const GameVideoGallery = (props: Props) => {
+  if (!props.videos || props.videos.length === 0) {
+    return <p className="text-slate-400">No videos available.</p>;
+  }
+
   return (
     <>
       <div className="flex overflow-x-auto scrollbar-hide gap-4 md:grid md:grid-cols-6 md:gap-4 md:overflow-visible">

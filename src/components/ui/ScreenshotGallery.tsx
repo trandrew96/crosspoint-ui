@@ -53,7 +53,7 @@ function ScreenshotGallery({
   };
 
   if (!screenshots || screenshots.length === 0) {
-    return null;
+    return <p className="text-slate-400">No screenshots available.</p>;
   }
 
   const handlePrevious = () => {
