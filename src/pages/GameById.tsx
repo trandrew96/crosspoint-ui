@@ -11,6 +11,9 @@ import GameByIdSkeleton from "../components/skeletons/GameByIdSkeleton";
 import GameSection from "../components/game/GameSection";
 import GameVideoGallery from "../components/game/GameVideoGallery";
 import GameReviewSection from "../components/reviews/GameReviewSection";
+import { PlatformIcons } from "../components/PlatformIcons";
+import { formatPlatformName } from "../utils/platformFormatter";
+import { combineSpecialPlatforms } from "../utils/combineSpecialPlatforms";
 
 interface Cover {
   url?: string;
@@ -199,6 +202,28 @@ function GameById() {
   // Check if game has ratings
   const hasRatings = game?.steam_review_score || game?.rating;
 
+  const platforms = game?.platforms ?? [];
+
+  // Format the text for platforms
+  let platformContent;
+
+  if (platforms.length === 1) {
+    platformContent = (
+      <div className="flex items-center gap-2">
+        <PlatformIcons platforms={[platforms[0]]} />
+        <span>{formatPlatformName(platforms[0].name ?? "")} Exclusive</span>
+      </div>
+    );
+  } else if (platforms.length > 1) {
+    const platformNames = platforms.map((p) => p.name ?? "");
+    const adjustedPlatformNames = combineSpecialPlatforms(platformNames);
+    platformContent = adjustedPlatformNames
+      .map((p) => formatPlatformName(p ?? ""))
+      .join(", ");
+  } else {
+    platformContent = "N/A";
+  }
+
   return (
     <>
       {loading && <GameByIdSkeleton />}
@@ -240,17 +265,7 @@ function GameById() {
                     Initial Release:{" "}
                     {formatReleaseDate(game?.first_release_date)}
                   </span>
-                  <span>
-                    {game?.platforms && game.platforms.length > 0 ? (
-                      <>
-                        {game.platforms
-                          .map((platform) => platform.name)
-                          .join(", ")}
-                      </>
-                    ) : (
-                      <>N/A</>
-                    )}
-                  </span>
+                  <span>{platformContent}</span>
                   <LikeButtonSimplified gameId={game?.id || 0} />
                 </div>
               </div>

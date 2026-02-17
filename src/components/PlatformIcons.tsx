@@ -111,7 +111,7 @@ export function PlatformIcons({
   const icons = getUniquePlatformIcons(platforms);
 
   return (
-    <div className={`flex gap-2 ${className}`}>
+    <div className={`${className}`}>
       {icons.map((iconName, index) => {
         const Icon = ICON_COMPONENTS[iconName];
         return <Icon key={`${iconName}-${index}`} size={size} />;
