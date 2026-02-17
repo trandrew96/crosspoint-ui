@@ -41,18 +41,30 @@ const LikeButtonSimplified: React.FC<LikeButtonSimplifiedProps> = ({
       if (!gameId) return;
 
       setIsLoading(true);
-      try {
-        const response = await gameAPI.checkGameLiked(gameId);
-        setIsLiked(response.liked);
-        setError(null);
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : "Failed to check like status";
-        setError(errorMessage);
-        console.error("Error checking like status:", err);
-      } finally {
-        setIsLoading(false);
+
+      const MAX_RETRIES = 3;
+      const RETRY_DELAY_MS = 2000;
+
+      for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+          const response = await gameAPI.checkGameLiked(gameId);
+          setIsLiked(response.liked);
+          setError(null);
+        } catch (err) {
+          if (attempt < MAX_RETRIES) {
+            await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+          } else {
+            const errorMessage =
+              err instanceof Error
+                ? err.message
+                : "Failed to check like status";
+            setError(errorMessage);
+            console.error("Error checking like status:", err);
+          }
+        }
       }
+
+      setIsLoading(false);
     };
 
     checkLikedStatus();
