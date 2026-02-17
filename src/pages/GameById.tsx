@@ -123,22 +123,42 @@ function GameById() {
     const fetchReviews = async () => {
       if (!id) return;
 
-      setReviewsLoading(true);
-      try {
-        const data = await reviewAPI.getGameReviews(parseInt(id));
-        setReviews(data.reviews || []);
+      console.log(`Started fetching reviews for ${id}`);
 
-        // Check if current user has reviewed this game
-        if (user) {
-          const myReview = data.reviews?.find(
-            (review: GameReview) => review.user_id === user.uid,
+      setReviewsLoading(true);
+
+      const MAX_RETRIES = 3;
+      const RETRY_DELAY_MS = 2000;
+
+      for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+          const data = await reviewAPI.getGameReviews(parseInt(id));
+          setReviews(data.reviews || []);
+
+          if (user) {
+            const myReview = data.reviews?.find(
+              (review: GameReview) => review.user_id === user.uid,
+            );
+            setUserReview(myReview || null);
+          }
+
+          setReviewsLoading(false);
+          console.log(`Finished fetching reviews for ${id}`);
+          return;
+        } catch (err) {
+          console.error(
+            `Error fetching reviews (attempt ${attempt}/${MAX_RETRIES}):`,
+            err,
           );
-          setUserReview(myReview || null);
+
+          if (attempt < MAX_RETRIES) {
+            await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+          } else {
+            // All retries exhausted
+            setReviews([]);
+            setReviewsLoading(false);
+          }
         }
-      } catch (err) {
-        console.error("Error fetching reviews:", err);
-      } finally {
-        setReviewsLoading(false);
       }
     };
 
