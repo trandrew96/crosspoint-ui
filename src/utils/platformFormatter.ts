@@ -1,5 +1,5 @@
 export const PLATFORM_NAME_MAP: Record<string, string> = {
-  "PC (Microsoft Windows)": "PC",
+  "PC (Microsoft Windows)": "Windows",
   "PlayStation 4": "PS4",
   "PlayStation 5": "PS5",
   "Xbox One": "XB1",
