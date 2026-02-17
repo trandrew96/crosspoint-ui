@@ -118,13 +118,12 @@ function GameById() {
     }
   }, [id]);
 
-  // Fetch reviews
+  // Fetch reviews only when id changes
   useEffect(() => {
     const fetchReviews = async () => {
       if (!id) return;
 
       console.log(`Started fetching reviews for ${id}`);
-
       setReviewsLoading(true);
 
       const MAX_RETRIES = 3;
@@ -134,14 +133,6 @@ function GameById() {
         try {
           const data = await reviewAPI.getGameReviews(parseInt(id));
           setReviews(data.reviews || []);
-
-          if (user) {
-            const myReview = data.reviews?.find(
-              (review: GameReview) => review.user_id === user.uid,
-            );
-            setUserReview(myReview || null);
-          }
-
           setReviewsLoading(false);
           console.log(`Finished fetching reviews for ${id}`);
           return;
@@ -154,7 +145,6 @@ function GameById() {
           if (attempt < MAX_RETRIES) {
             await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
           } else {
-            // All retries exhausted
             setReviews([]);
             setReviewsLoading(false);
           }
@@ -163,7 +153,19 @@ function GameById() {
     };
 
     fetchReviews();
-  }, [id, user]);
+  }, [id]);
+
+  // Find user's review from already-fetched reviews when user or reviews change
+  useEffect(() => {
+    if (user && reviews.length > 0) {
+      const myReview = reviews.find(
+        (review: GameReview) => review.user_id === user.uid,
+      );
+      setUserReview(myReview || null);
+    } else {
+      setUserReview(null);
+    }
+  }, [user, reviews]);
 
   // Update title based on game name
   useEffect(() => {
@@ -249,11 +251,6 @@ function GameById() {
                       <>N/A</>
                     )}
                   </span>
-                  {/* <PlatformIcons
-                    platforms={game?.platforms || []}
-                    size={32}
-                    className="flex-wrap"
-                  /> */}
                   <LikeButtonSimplified gameId={game?.id || 0} />
                 </div>
               </div>
@@ -297,7 +294,6 @@ function GameById() {
                         alt={game.videos[0].name || "Game Trailer"}
                         className="absolute top-0 left-0 w-full h-full object-cover"
                         onError={(e) => {
-                          // Fallback to hqdefault if maxresdefault doesn't exist
                           if (game.videos?.[0]?.video_id) {
                             e.currentTarget.src = `https://img.youtube.com/vi/${game.videos[0].video_id}/hqdefault.jpg`;
                           }
@@ -401,7 +397,6 @@ function GameById() {
                               title={config.label}
                             >
                               <Icon size={24} />
-                              {/* <span>{config.label}</span> */}
                             </a>
                           );
                         },
@@ -429,7 +424,6 @@ function GameById() {
                                   title={config.label}
                                 >
                                   <Icon size={24} />
-                                  {/* <span>{config.label}</span> */}
                                 </a>
                               );
                             },
