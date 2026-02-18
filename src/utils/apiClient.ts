@@ -349,4 +349,82 @@ export const reviewAPI = {
   },
 };
 
+export const playlistAPI = {
+  /**
+   * Create a playlist
+   */
+  createPlaylist: async (
+    name: string,
+    description?: string,
+    isPublic: boolean = true,
+  ) => {
+    return authenticatedFetch("/playlists", {
+      method: "POST",
+      body: JSON.stringify({ name, description, is_public: isPublic }),
+    });
+  },
+
+  /**
+   * Get all playlists for the current user
+   */
+  getMyPlaylists: async () => {
+    return authenticatedFetch("/users/me/playlists", {
+      method: "GET",
+    });
+  },
+
+  /**
+   * Get a single playlist by ID (public playlists don't require auth,
+   * but we send the token anyway in case it's private)
+   */
+  getPlaylistById: async (playlistId: number) => {
+    return authenticatedFetch(`/playlists/${playlistId}`, {
+      method: "GET",
+    });
+  },
+
+  /**
+   * Update a playlist
+   */
+  updatePlaylist: async (
+    playlistId: number,
+    name?: string,
+    description?: string,
+    isPublic?: boolean,
+  ) => {
+    return authenticatedFetch(`/playlists/${playlistId}`, {
+      method: "PUT",
+      body: JSON.stringify({ name, description, is_public: isPublic }),
+    });
+  },
+
+  /**
+   * Delete a playlist
+   */
+  deletePlaylist: async (playlistId: number) => {
+    return authenticatedFetch(`/playlists/${playlistId}`, {
+      method: "DELETE",
+    });
+  },
+
+  /**
+   * Add a game to a playlist
+   */
+  addGameToPlaylist: async (playlistId: number, gameId: number) => {
+    return authenticatedFetch(`/playlists/${playlistId}/games`, {
+      method: "POST",
+      body: JSON.stringify({ game_id: gameId }),
+    });
+  },
+
+  /**
+   * Remove a game from a playlist
+   */
+  removeGameFromPlaylist: async (playlistId: number, gameId: number) => {
+    return authenticatedFetch(`/playlists/${playlistId}/games/${gameId}`, {
+      method: "DELETE",
+    });
+  },
+};
+
 export default authenticatedFetch;

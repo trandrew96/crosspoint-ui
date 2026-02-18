@@ -9,7 +9,7 @@ interface Review {
   id: number;
   game_id: number;
   game_name: string;
-  game_cover?: { url: string };
+  cover?: { url: string };
   rating: number;
   review_text: string;
   created_at: string;
@@ -32,6 +32,7 @@ const MyReviews = () => {
     const fetchReviews = async () => {
       try {
         const data = await reviewAPI.getMyReviews();
+        console.log(data.reviews);
         setReviews(data.reviews);
       } catch (err: any) {
         setError(err.message || "Failed to load reviews");
@@ -92,10 +93,10 @@ const MyReviews = () => {
             >
               <div className="flex gap-4">
                 {/* Game Cover */}
-                {review.game_cover?.url && (
+                {review.cover?.url && (
                   <Link to={`/games/${review.game_id}`}>
                     <img
-                      src={review.game_cover.url}
+                      src={review.cover.url}
                       alt={review.game_name}
                       className="w-20 h-28 object-cover rounded"
                     />

@@ -14,6 +14,7 @@ import GameById from "./pages/GameById";
 import Home from "./pages/Home";
 import CreateReview from "./pages/CreateReview";
 import MyReviews from "./pages/MyReviews";
+import PlaylistTestPage from "./pages/PlaylistTestPage";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: "/games/:id", element: <GameById /> },
       { path: "/games/:gameId/review", element: <CreateReview /> },
       { path: "/my-reviews", element: <MyReviews /> },
+      { path: "/playlist-test-page", element: <PlaylistTestPage /> },
       { path: "/about", element: <About /> },
       { path: "*", element: <NotFoundPage /> },
     ],
