@@ -233,6 +233,12 @@ function GameById() {
 
       {!loading && !error && game && (
         <>
+          {showPlaylistModal && (
+            <AddToPlaylistModal
+              gameId={game.id}
+              onClose={() => setShowPlaylistModal(false)}
+            />
+          )}
           {/* Hero section */}
           <section className="p-5 flex flex-col lg:flex-row gap-5 max-w-7xl mx-auto mt-4 md:bg-slate-800/75 rounded-sm drop-shadow-md lg:justify-between">
             {/* Row 1 on mobile: Cover + Info */}
@@ -281,13 +287,6 @@ function GameById() {
                     <FiPlus size={18} />
                     Add to Playlist
                   </button>
-
-                  {showPlaylistModal && (
-                    <AddToPlaylistModal
-                      gameId={game.id}
-                      onClose={() => setShowPlaylistModal(false)}
-                    />
-                  )}
                 </div>
               </div>
             </div>

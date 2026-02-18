@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { playlistAPI } from "../utils/apiClient";
-import { FiEdit, FiTrash2, FiLock, FiGlobe } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiLock, FiGlobe, FiX } from "react-icons/fi";
 
 interface PlaylistGame {
   game_id: number;
@@ -32,6 +32,7 @@ export default function PlaylistDetail() {
   const [error, setError] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [removingGameId, setRemovingGameId] = useState<number | null>(null);
 
   const isOwner = user && playlist && user.uid === playlist.user_id;
 
@@ -59,6 +60,23 @@ export default function PlaylistDetail() {
     } catch (e: any) {
       setError(e.message);
       setDeleting(false);
+    }
+  };
+
+  const handleRemoveGame = async (gameId: number) => {
+    if (!playlist) return;
+    setRemovingGameId(gameId);
+    try {
+      await playlistAPI.removeGameFromPlaylist(playlist.id, gameId);
+      setPlaylist((prev) =>
+        prev
+          ? { ...prev, games: prev.games.filter((g) => g.game_id !== gameId) }
+          : prev,
+      );
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setRemovingGameId(null);
     }
   };
 
@@ -151,20 +169,40 @@ export default function PlaylistDetail() {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 mt-8">
           {playlist.games.map((game) => (
-            <Link key={game.game_id} to={`/games/${game.game_id}`}>
-              {game.cover?.url ? (
-                <img
-                  src={game.cover.url}
-                  alt={game.name}
-                  className="w-full aspect-[3/4] object-cover rounded-lg"
-                />
-              ) : (
-                <div className="w-full aspect-[3/4] bg-gray-800 rounded-lg flex items-center justify-center text-gray-500 text-xs">
-                  No cover
-                </div>
+            <div key={game.game_id} className="relative group">
+              <Link to={`/games/${game.game_id}`}>
+                {game.cover?.url ? (
+                  <img
+                    src={game.cover.url}
+                    alt={game.name}
+                    className="w-full aspect-[3/4] object-cover rounded-lg"
+                  />
+                ) : (
+                  <div className="w-full aspect-[3/4] bg-gray-800 rounded-lg flex items-center justify-center text-gray-500 text-xs">
+                    No cover
+                  </div>
+                )}
+                <p className="text-sm mt-2 text-gray-300 truncate">
+                  {game.name}
+                </p>
+              </Link>
+
+              {/* Remove button — owner only */}
+              {isOwner && (
+                <button
+                  onClick={() => handleRemoveGame(game.game_id)}
+                  disabled={removingGameId === game.game_id}
+                  className="absolute top-2 right-2 p-1.5 bg-black/70 hover:bg-red-500/80 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all"
+                  title="Remove from playlist"
+                >
+                  {removingGameId === game.game_id ? (
+                    <span className="block w-3 h-3 border-2 border-white/50 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <FiX size={13} />
+                  )}
+                </button>
               )}
-              <p className="text-sm mt-2 text-gray-300 truncate">{game.name}</p>
-            </Link>
+            </div>
           ))}
         </div>
       )}

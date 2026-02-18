@@ -98,17 +98,20 @@ const Navbar = () => {
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex md:items-center md:space-x-4">
           <Link
-            to="/profile"
-            className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
-          >
-            Backlog
-          </Link>
-          <Link
             to="/popular"
             className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
           >
-            Popular
+            Discover
           </Link>
+          {user && (
+            <Link
+              to="/my-playlists"
+              className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
+            >
+              My Lists
+            </Link>
+          )}
+
           {user ? (
             // Desktop Profile Dropdown
             <div className="relative" ref={dropdownRef}>
@@ -140,13 +143,6 @@ const Navbar = () => {
                     Your Reviews
                   </Link>
                   <Link
-                    to="/my-playlists"
-                    onClick={() => setIsProfileDropdownOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
-                  >
-                    My Playlists
-                  </Link>
-                  <Link
                     to="/account"
                     onClick={() => setIsProfileDropdownOpen(false)}
                     className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
@@ -173,12 +169,22 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </button>
+        {/* Mobile right side buttons */}
+        <div className="md:hidden flex items-center gap-6">
+          <Link
+            to="/search"
+            className="text-white"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <FiSearch size={22} />
+          </Link>
+          <button
+            className="text-white"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -186,19 +192,22 @@ const Navbar = () => {
         <div className="md:hidden absolute top-16 left-0 w-full bg-gray-800 border-t border-gray-700 shadow-lg">
           <div className="flex flex-col p-4 space-y-3">
             <Link
-              to="/search"
-              onClick={closeMobileMenu}
-              className="text-white hover:text-gray-300 py-2"
-            >
-              Search
-            </Link>
-            <Link
               to="/popular"
               onClick={closeMobileMenu}
               className="text-white hover:text-gray-300 py-2"
             >
-              Popular
+              Discover
             </Link>
+
+            {user && (
+              <Link
+                to="/my-playlists"
+                onClick={closeMobileMenu}
+                className="text-white hover:text-gray-300 py-2"
+              >
+                My Playlists
+              </Link>
+            )}
 
             {user ? (
               <>
@@ -208,7 +217,7 @@ const Navbar = () => {
                   onClick={closeMobileMenu}
                   className="text-white hover:text-gray-300 py-2"
                 >
-                  Profile
+                  My Profile
                 </Link>
                 <Link
                   to="/account"
@@ -216,13 +225,6 @@ const Navbar = () => {
                   className="text-white hover:text-gray-300 py-2"
                 >
                   Account Settings
-                </Link>
-                <Link
-                  to="/my-playlists"
-                  onClick={closeMobileMenu}
-                  className="text-white hover:text-gray-300 py-2"
-                >
-                  My Playlists
                 </Link>
                 <Link
                   to="/liked-games"

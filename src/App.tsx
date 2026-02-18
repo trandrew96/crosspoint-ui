@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import MyPlaylists from "./pages/MyPlaylists";
 import PlaylistDetail from "./pages/PlaylistDetail";
 import EditPlaylist from "./pages/EditPlaylist";
+import CreatePlaylist from "./pages/CreatePlaylist";
 
 export const router = createBrowserRouter([
   {
@@ -67,14 +68,14 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      // {
-      //   path: "/playlist-test-page",
-      //   element: (
-      //     <ProtectedRoute>
-      //       <PlaylistTestPage />
-      //     </ProtectedRoute>
-      //   ),
-      // },
+      {
+        path: "/playlists/create",
+        element: (
+          <ProtectedRoute>
+            <CreatePlaylist />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "/my-playlists",
         element: (

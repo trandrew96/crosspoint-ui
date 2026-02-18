@@ -56,14 +56,14 @@ function ExploreFast() {
       <>
         {/* Search Bar */}
         <form onSubmit={handleSubmit} className="md:hidden">
-          <div className="relative text-gray-600 mx-auto w-80 rounded-full bg-white flex pr-4">
+          <div className="relative text-gray-600 mx-auto max-w-120 rounded-full bg-white flex pr-4">
             <input
               type="search"
               name="search"
               placeholder="Search"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="h-10 px-5 pr-10 w-80 overflow-hidden text-sm focus:outline-none"
+              className="h-10 px-5 pr-10 w- overflow-hidden text-sm focus:outline-none"
             />
             <button
               type="submit"
