@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { playlistAPI } from "../utils/apiClient";
 import PlaylistCard from "../components/PlaylistCard";
 import { FiPlus } from "react-icons/fi";
@@ -20,7 +19,6 @@ interface Playlist {
 }
 
 export default function MyPlaylists() {
-  const { user } = useAuth();
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

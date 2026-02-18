@@ -14,7 +14,6 @@ import GameById from "./pages/GameById";
 import Home from "./pages/Home";
 import CreateReview from "./pages/CreateReview";
 import MyReviews from "./pages/MyReviews";
-import PlaylistTestPage from "./pages/PlaylistTestPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MyPlaylists from "./pages/MyPlaylists";
 import PlaylistDetail from "./pages/PlaylistDetail";
