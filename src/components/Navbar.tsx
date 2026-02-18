@@ -140,6 +140,13 @@ const Navbar = () => {
                     Your Reviews
                   </Link>
                   <Link
+                    to="/my-playlists"
+                    onClick={() => setIsProfileDropdownOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
+                  >
+                    My Playlists
+                  </Link>
+                  <Link
                     to="/account"
                     onClick={() => setIsProfileDropdownOpen(false)}
                     className="block px-4 py-2 text-white hover:bg-gray-700 transition-colors"
@@ -209,6 +216,13 @@ const Navbar = () => {
                   className="text-white hover:text-gray-300 py-2"
                 >
                   Account Settings
+                </Link>
+                <Link
+                  to="/my-playlists"
+                  onClick={closeMobileMenu}
+                  className="text-white hover:text-gray-300 py-2"
+                >
+                  My Playlists
                 </Link>
                 <Link
                   to="/liked-games"

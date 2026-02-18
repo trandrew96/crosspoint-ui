@@ -349,4 +349,98 @@ export const reviewAPI = {
   },
 };
 
+export const playlistAPI = {
+  /**
+   * Create a playlist
+   */
+  createPlaylist: async (
+    name: string,
+    description?: string,
+    isPublic: boolean = true,
+  ) => {
+    return authenticatedFetch("/playlists", {
+      method: "POST",
+      body: JSON.stringify({ name, description, is_public: isPublic }),
+    });
+  },
+
+  /**
+   * Get all playlists for the current user
+   */
+  getMyPlaylists: async () => {
+    return authenticatedFetch("/users/me/playlists", {
+      method: "GET",
+    });
+  },
+
+  /**
+   * Get a single playlist by ID
+   */
+  getPlaylistById: async (playlistId: number) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      // Authenticated — send token (needed for private playlists you own)
+      return authenticatedFetch(`/playlists/${playlistId}`, { method: "GET" });
+    } else {
+      // Guest — plain fetch, backend will allow if playlist is public
+      const response = await fetch(`${API_BASE_URL}/playlists/${playlistId}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(
+          error.detail || `Request failed with status ${response.status}`,
+        );
+      }
+      return response.json();
+    }
+  },
+
+  /**
+   * Update a playlist
+   */
+  updatePlaylist: async (
+    playlistId: number,
+    name?: string,
+    description?: string,
+    isPublic?: boolean,
+  ) => {
+    return authenticatedFetch(`/playlists/${playlistId}`, {
+      method: "PUT",
+      body: JSON.stringify({ name, description, is_public: isPublic }),
+    });
+  },
+
+  /**
+   * Delete a playlist
+   */
+  deletePlaylist: async (playlistId: number) => {
+    return authenticatedFetch(`/playlists/${playlistId}`, {
+      method: "DELETE",
+    });
+  },
+
+  /**
+   * Add a game to a playlist
+   */
+  addGameToPlaylist: async (playlistId: number, gameId: number) => {
+    return authenticatedFetch(`/playlists/${playlistId}/games`, {
+      method: "POST",
+      body: JSON.stringify({ game_id: gameId }),
+    });
+  },
+
+  /**
+   * Remove a game from a playlist
+   */
+  removeGameFromPlaylist: async (playlistId: number, gameId: number) => {
+    return authenticatedFetch(`/playlists/${playlistId}/games/${gameId}`, {
+      method: "DELETE",
+    });
+  },
+};
+
 export default authenticatedFetch;

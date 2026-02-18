@@ -14,6 +14,11 @@ import GameById from "./pages/GameById";
 import Home from "./pages/Home";
 import CreateReview from "./pages/CreateReview";
 import MyReviews from "./pages/MyReviews";
+import PlaylistTestPage from "./pages/PlaylistTestPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import MyPlaylists from "./pages/MyPlaylists";
+import PlaylistDetail from "./pages/PlaylistDetail";
+import EditPlaylist from "./pages/EditPlaylist";
 
 export const router = createBrowserRouter([
   {
@@ -24,13 +29,71 @@ export const router = createBrowserRouter([
       { path: "/search", element: <Search /> },
       { path: "/signup", element: <SignUp /> },
       { path: "/signin", element: <SignIn /> },
-      { path: "/profile", element: <Profile /> },
-      { path: "/account", element: <Account /> },
-      { path: "/games/:id", element: <GameById /> },
-      { path: "/games/:gameId/review", element: <CreateReview /> },
-      { path: "/my-reviews", element: <MyReviews /> },
       { path: "/about", element: <About /> },
       { path: "*", element: <NotFoundPage /> },
+      { path: "/games/:id", element: <GameById /> },
+      { path: "/playlists/:id", element: <PlaylistDetail /> },
+
+      // Protected Routes
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+
+      {
+        path: "/account",
+        element: (
+          <ProtectedRoute>
+            <Account />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/games/:gameId/review",
+        element: (
+          <ProtectedRoute>
+            <CreateReview />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my-reviews",
+        element: (
+          <ProtectedRoute>
+            <MyReviews />
+          </ProtectedRoute>
+        ),
+      },
+      // {
+      //   path: "/playlist-test-page",
+      //   element: (
+      //     <ProtectedRoute>
+      //       <PlaylistTestPage />
+      //     </ProtectedRoute>
+      //   ),
+      // },
+      {
+        path: "/my-playlists",
+        element: (
+          <ProtectedRoute>
+            <MyPlaylists />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/playlists/:id/edit",
+        element: (
+          <ProtectedRoute>
+            <EditPlaylist />
+          </ProtectedRoute>
+        ),
+      },
+
+      // { path: "/playlists/create", element: <ProtectedRoute><CreatePlaylist /></ProtectedRoute> },
     ],
   },
 ]);

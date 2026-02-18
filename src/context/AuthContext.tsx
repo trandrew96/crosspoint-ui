@@ -1,10 +1,11 @@
 // AuthContext.tsx
 import { createContext, useContext, useEffect, useState } from "react";
-import type { ReactNode } from "react"; // Use type import
+import type { ReactNode } from "react";
 
 import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import type { User } from "firebase/auth"; // Use type import
+import type { User } from "firebase/auth";
+import authenticatedFetch from "../utils/apiClient";
 
 interface AuthContextType {
   user: User | null;
@@ -23,8 +24,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+
+      if (currentUser) {
+        try {
+          await authenticatedFetch("/users/me/init", { method: "POST" });
+        } catch (e) {
+          console.error("Failed to initialise user:", e);
+        }
+      }
+
       setLoading(false);
     });
 
