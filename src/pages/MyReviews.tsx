@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 import { reviewAPI } from "../utils/apiClient";
 import ReviewCardSkeleton from "../components/skeletons/ReviewCardSkeleton";
-import { FiEdit } from "react-icons/fi"; // Import edit icon
+import { FiEdit } from "react-icons/fi";
 
 interface Review {
   id: number;
@@ -17,18 +16,11 @@ interface Review {
 }
 
 const MyReviews = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/signin");
-      return;
-    }
-
     const fetchReviews = async () => {
       try {
         const data = await reviewAPI.getMyReviews();
@@ -42,7 +34,7 @@ const MyReviews = () => {
     };
 
     fetchReviews();
-  }, [user, navigate]);
+  }, []);
 
   if (loading) {
     return (
