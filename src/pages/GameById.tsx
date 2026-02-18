@@ -14,6 +14,8 @@ import GameReviewSection from "../components/reviews/GameReviewSection";
 import { PlatformIcons } from "../components/PlatformIcons";
 import { formatPlatformName } from "../utils/platformFormatter";
 import { combineSpecialPlatforms } from "../utils/combineSpecialPlatforms";
+import AddToPlaylistModal from "../components/AddToPlaylistModal";
+import { FiPlus } from "react-icons/fi";
 
 interface Cover {
   url?: string;
@@ -55,7 +57,7 @@ interface Video {
 }
 
 interface Game {
-  id?: number;
+  id: number;
   name?: string;
   summary?: string;
   cover?: Cover;
@@ -96,6 +98,7 @@ function GameById() {
   const [reviews, setReviews] = useState<GameReview[]>([]);
   const [userReview, setUserReview] = useState<GameReview | null>(null);
   const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [showPlaylistModal, setShowPlaylistModal] = useState(false);
 
   // Fetch game data when component mounts or when id changes
   useEffect(() => {
@@ -270,7 +273,21 @@ function GameById() {
                       {game.genres.map((genre) => genre.name).join(", ")}
                     </span>
                   )}
-                  <LikeButtonSimplified gameId={game?.id || 0} />
+                  <LikeButtonSimplified gameId={game.id || 0} />
+                  <button
+                    onClick={() => setShowPlaylistModal(true)}
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+                  >
+                    <FiPlus size={18} />
+                    Add to Playlist
+                  </button>
+
+                  {showPlaylistModal && (
+                    <AddToPlaylistModal
+                      gameId={game.id}
+                      onClose={() => setShowPlaylistModal(false)}
+                    />
+                  )}
                 </div>
               </div>
             </div>

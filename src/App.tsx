@@ -16,6 +16,9 @@ import CreateReview from "./pages/CreateReview";
 import MyReviews from "./pages/MyReviews";
 import PlaylistTestPage from "./pages/PlaylistTestPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MyPlaylists from "./pages/MyPlaylists";
+import PlaylistDetail from "./pages/PlaylistDetail";
+import EditPlaylist from "./pages/EditPlaylist";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +32,7 @@ export const router = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "*", element: <NotFoundPage /> },
       { path: "/games/:id", element: <GameById /> },
+      { path: "/playlists/:id", element: <PlaylistDetail /> },
 
       // Protected Routes
       {
@@ -64,14 +68,32 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      // {
+      //   path: "/playlist-test-page",
+      //   element: (
+      //     <ProtectedRoute>
+      //       <PlaylistTestPage />
+      //     </ProtectedRoute>
+      //   ),
+      // },
       {
-        path: "/playlist-test-page",
+        path: "/my-playlists",
         element: (
           <ProtectedRoute>
-            <PlaylistTestPage />
+            <MyPlaylists />
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/playlists/:id/edit",
+        element: (
+          <ProtectedRoute>
+            <EditPlaylist />
+          </ProtectedRoute>
+        ),
+      },
+
+      // { path: "/playlists/create", element: <ProtectedRoute><CreatePlaylist /></ProtectedRoute> },
     ],
   },
 ]);

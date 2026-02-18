@@ -374,13 +374,29 @@ export const playlistAPI = {
   },
 
   /**
-   * Get a single playlist by ID (public playlists don't require auth,
-   * but we send the token anyway in case it's private)
+   * Get a single playlist by ID
    */
   getPlaylistById: async (playlistId: number) => {
-    return authenticatedFetch(`/playlists/${playlistId}`, {
-      method: "GET",
-    });
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      // Authenticated — send token (needed for private playlists you own)
+      return authenticatedFetch(`/playlists/${playlistId}`, { method: "GET" });
+    } else {
+      // Guest — plain fetch, backend will allow if playlist is public
+      const response = await fetch(`${API_BASE_URL}/playlists/${playlistId}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(
+          error.detail || `Request failed with status ${response.status}`,
+        );
+      }
+      return response.json();
+    }
   },
 
   /**
