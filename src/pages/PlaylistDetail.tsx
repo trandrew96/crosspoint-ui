@@ -24,7 +24,7 @@ interface Playlist {
 
 export default function PlaylistDetail() {
   const { id } = useParams<{ id: string }>();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   const [playlist, setPlaylist] = useState<Playlist | null>(null);
@@ -37,6 +37,8 @@ export default function PlaylistDetail() {
   const isOwner = user && playlist && user.uid === playlist.user_id;
 
   useEffect(() => {
+    if (authLoading) return; // wait until Firebase has resolved the user
+
     const fetchPlaylist = async () => {
       try {
         const data = await playlistAPI.getPlaylistById(Number(id));
@@ -49,7 +51,7 @@ export default function PlaylistDetail() {
     };
 
     fetchPlaylist();
-  }, [id]);
+  }, [id, authLoading]);
 
   const handleDeletePlaylist = async () => {
     if (!playlist) return;

@@ -26,6 +26,7 @@ export default function EditPlaylist() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [isPublic, setIsPublic] = useState(true);
+  const [isDefault, setIsDefault] = useState(false);
 
   useEffect(() => {
     if (authLoading) return;
@@ -44,6 +45,7 @@ export default function EditPlaylist() {
         setName(data.name);
         setDescription(data.description ?? "");
         setIsPublic(data.is_public);
+        setIsDefault(data.is_default);
       } catch (e: any) {
         setError(e.message || "Failed to load playlist");
       } finally {
@@ -119,7 +121,8 @@ export default function EditPlaylist() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Playlist name"
-            className="bg-gray-800 border border-gray-700 focus:border-indigo-500 rounded-lg px-4 py-2.5 text-white text-sm outline-none transition-colors"
+            className="bg-gray-800 border border-gray-700 focus:border-indigo-500 rounded-lg px-4 py-2.5 text-white text-sm outline-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isDefault}
           />
         </div>
 
@@ -131,7 +134,8 @@ export default function EditPlaylist() {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Optional description"
             rows={4}
-            className="bg-gray-800 border border-gray-700 focus:border-indigo-500 rounded-lg px-4 py-2.5 text-white text-sm outline-none transition-colors resize-none"
+            className="bg-gray-800 border border-gray-700 focus:border-indigo-500 rounded-lg px-4 py-2.5 text-white text-sm outline-none transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isDefault}
           />
         </div>
 
