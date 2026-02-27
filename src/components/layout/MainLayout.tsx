@@ -1,21 +1,25 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
+import ScrollToTop from "../ScrollToTop";
 
 export default function MainLayout() {
   return (
-    <div className="font-display min-h-screen flex flex-col bg-bg text-primaryText">
-      {/* Navbar */}
-      <Navbar />
+    <>
+      <ScrollToTop />
+      <div className="font-display min-h-screen flex flex-col bg-bg text-primaryText">
+        {/* Navbar */}
+        <Navbar />
 
-      {/* Page Content */}
-      {/* <main className="flex-1 mx-auto w-full pt-24 pb-16"> */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-10 pt-24 pb-16">
-        <Outlet />
-      </main>
+        {/* Page Content */}
+        {/* <main className="flex-1 mx-auto w-full pt-24 pb-16"> */}
+        <main className="flex-1 max-w-7xl mx-auto w-full px-4 md:px-10 pt-24 pb-16">
+          <Outlet />
+        </main>
 
-      {/* Footer */}
-      <Footer />
-    </div>
+        {/* Footer */}
+        <Footer />
+      </div>
+    </>
   );
 }
