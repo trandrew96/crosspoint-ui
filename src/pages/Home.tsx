@@ -182,15 +182,35 @@ function Home() {
       <div className="h-20" />
 
       <div>
-        <GameRow title="Most Anticipated" games={data.mostAnticipated} />
+        <GameRow
+          title="Most Anticipated"
+          games={data.mostAnticipated}
+          className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]"
+        />
         <div className="h-16" /> {/* 64px gap */}
-        <GameRow title="Trending Now" games={data.trending} />
+        <GameRow
+          title="Trending Now"
+          games={data.trending}
+          className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]"
+        />
         <div className="h-20" /> {/* 80px gap */}
-        <GameRow title="Recently Released" games={data.recent} />
+        <GameRow
+          title="Recently Released"
+          games={data.recent}
+          className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]"
+        />
         <div className="h-24" /> {/* 96px gap */}
-        <GameRow title="Hidden Gems" games={data.hiddenGems} />
+        <GameRow
+          title="Hidden Gems"
+          games={data.hiddenGems}
+          className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]"
+        />
         <div className="h-14" /> {/* 56px gap */}
-        <GameRow title="Upcoming Releases" games={data.upcoming} />
+        <GameRow
+          title="Upcoming Releases"
+          games={data.upcoming}
+          className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]"
+        />
       </div>
     </div>
   );

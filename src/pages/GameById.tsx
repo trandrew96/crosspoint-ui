@@ -16,6 +16,7 @@ import { formatPlatformName } from "../utils/platformFormatter";
 import { combineSpecialPlatforms } from "../utils/combineSpecialPlatforms";
 import AddToPlaylistModal from "../components/AddToPlaylistModal";
 import { FiPlus } from "react-icons/fi";
+import GameRow from "../components/GameRow";
 
 interface Cover {
   url?: string;
@@ -76,6 +77,13 @@ interface Game {
   steam_negative_reviews?: number;
   steam_positive_reviews?: number;
   steam_review_score?: number;
+  similar_games: {
+    id: number;
+    name: string;
+    cover?: {
+      url?: string;
+    };
+  }[];
   [key: string]: any;
 }
 
@@ -470,6 +478,13 @@ function GameById() {
                 )}
             </div>
           </section>
+
+          {/* Similar games section */}
+          {game.similar_games && (
+            <GameSection title="Similar Games">
+              <GameRow title="" games={game.similar_games} />
+            </GameSection>
+          )}
         </>
       )}
     </>

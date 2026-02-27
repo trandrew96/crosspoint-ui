@@ -14,9 +14,10 @@ interface Game {
 interface GameRowProps {
   title: string;
   games: Game[];
+  className?: string;
 }
 
-function GameRow({ title, games }: GameRowProps) {
+function GameRow({ title, games, className = "" }: GameRowProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -94,7 +95,7 @@ function GameRow({ title, games }: GameRowProps) {
   }
 
   return (
-    <section className="mb-10 pb-8 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-slate-500/20 after:shadow-[0_0_6px_2px_rgba(148,163,184,0.15)]">
+    <section className={className}>
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       {/* Container - symmetrical layout with group for hover */}
       <div className="relative group/row">
