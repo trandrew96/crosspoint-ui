@@ -17,7 +17,6 @@ interface Game {
 interface ExploreData {
   upcoming: Game[];
   trending: Game[];
-  topRated: Game[];
   recent: Game[];
   mostAnticipated: Game[];
   hiddenGems: Game[];
@@ -49,12 +48,6 @@ export function useExploreGames(limit: number = 20): UseExploreGamesReturn {
         gcTime: 1000 * 60 * 30,
       },
       {
-        queryKey: ["explore", "topRated", limit],
-        queryFn: () => gameAPI.getTopRatedGames(limit),
-        staleTime: 1000 * 60 * 10, // 10 minutes - changes less frequently
-        gcTime: 1000 * 60 * 60, // 1 hour
-      },
-      {
         queryKey: ["explore", "recent", limit],
         queryFn: () => gameAPI.getRecentGames(limit),
         staleTime: 1000 * 60 * 5,
@@ -79,7 +72,6 @@ export function useExploreGames(limit: number = 20): UseExploreGamesReturn {
   const [
     upcomingQuery,
     trendingQuery,
-    topRatedQuery,
     recentQuery,
     anticipatedQuery,
     hiddenGemsQuery,
@@ -105,7 +97,6 @@ export function useExploreGames(limit: number = 20): UseExploreGamesReturn {
     data: {
       upcoming: upcomingQuery.data || [],
       trending: trendingQuery.data || [],
-      topRated: topRatedQuery.data || [],
       recent: recentQuery.data || [],
       mostAnticipated: anticipatedQuery.data || [],
       hiddenGems: hiddenGemsQuery.data || [],

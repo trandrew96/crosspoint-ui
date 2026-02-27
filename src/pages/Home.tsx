@@ -186,8 +186,6 @@ function Home() {
         <div className="h-16" /> {/* 64px gap */}
         <GameRow title="Trending Now" games={data.trending} />
         <div className="h-20" /> {/* 80px gap */}
-        <GameRow title="Top Rated All Time" games={data.topRated} />
-        <div className="h-12" /> {/* 48px gap */}
         <GameRow title="Recently Released" games={data.recent} />
         <div className="h-24" /> {/* 96px gap */}
         <GameRow title="Hidden Gems" games={data.hiddenGems} />
