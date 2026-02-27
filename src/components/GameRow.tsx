@@ -42,7 +42,7 @@ function GameRow({ title, games, className = "" }: GameRowProps) {
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 640; // Scroll by ~4 game covers (160px each)
+      const scrollAmount = 960; // Scroll by ~4 game covers (160px each)
       const newScrollLeft =
         direction === "left"
           ? scrollContainerRef.current.scrollLeft - scrollAmount

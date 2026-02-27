@@ -5,7 +5,7 @@ import HeroCarousel from "../components/HeroCarousel";
 import { useExploreGames } from "../hooks/useExploreGames";
 
 function Home() {
-  const { data, loading, error, refetch } = useExploreGames(20);
+  const { data, loading, error, refetch } = useExploreGames(32);
 
   useEffect(() => {
     document.title = "Home Games - CrossPoint";
